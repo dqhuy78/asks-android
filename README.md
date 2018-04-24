@@ -1,1 +1,1 @@
-# An android project
+# A simple android project
