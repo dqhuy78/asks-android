@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="www.seotoolzz.com.Ask.MainActivity"
+    tools:context="www.seotoolzz.com.Ask.Activity.MainActivity"
     android:id="@+id/constraintLayout">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

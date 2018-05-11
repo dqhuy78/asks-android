@@ -12,8 +12,8 @@
     android:paddingStart="20dp">
 
 
-<!--
     <LinearLayout
+        android:id="@+id/layOutLoginSucess"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -104,7 +104,7 @@
         </LinearLayout>
 
     </LinearLayout>
--->
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -120,7 +120,7 @@
             app:srcCompat="@drawable/logo" />
 
         <Button
-            android:id="@+id/btnToLogin"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"

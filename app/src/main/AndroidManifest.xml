@@ -9,32 +9,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="www.seotoolzz.com.Ask.MainActivity">
+        <activity android:name="www.seotoolzz.com.Ask.Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="www.seotoolzz.com.Ask.LoginActivity">
+        <activity android:name="www.seotoolzz.com.Ask.Activity.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="www.seotoolzz.com.Ask.MainActivity" />
+                android:value="www.seotoolzz.com.Ask.Activity.MainActivity" />
         </activity>
-        <activity android:name="www.seotoolzz.com.Ask.SignUpActivity">
+        <activity android:name="www.seotoolzz.com.Ask.Activity.SignUpActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="www.seotoolzz.com.Ask.MainActivity" />
+                android:value="www.seotoolzz.com.Ask.Activity.MainActivity" />
         </activity>
-        <activity android:name="www.seotoolzz.com.Ask.CreatNewQuestion">
+        <activity android:name="www.seotoolzz.com.Ask.Activity.CreatNewQuestion">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="www.seotoolzz.com.Ask.MainActivity" />
+                android:value="www.seotoolzz.com.Ask.Activity.MainActivity" />
         </activity>
-        <activity android:name="www.seotoolzz.com.Ask.DetailQuestionActivity">
+        <activity android:name="www.seotoolzz.com.Ask.model.DetailQuestionActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="www.seotoolzz.com.Ask.MainActivity" />
+                android:value="www.seotoolzz.com.Ask.Activity.MainActivity" />
         </activity>
     </application>
 

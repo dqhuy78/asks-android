@@ -44,7 +44,7 @@
         android:textSize="16sp"/>
 
     <Button
-        android:id="@+id/btnToLogin"
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/edtPassword"
@@ -59,10 +59,22 @@
         android:id="@+id/txtToSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/btnToLogin"
-        android:layout_below="@+id/btnToLogin"
+        android:layout_alignEnd="@+id/btnLogin"
+        android:layout_below="@+id/btnLogin"
         android:layout_marginTop="15dp"
         android:text="Don't have an account ? Sign-up here"
         android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/txtErr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_below="@+id/edtPassword"
+        android:layout_marginTop="15dp"
+        android:text="*err "
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="16dp"
+        android:visibility="invisible" />
 
 </RelativeLayout>

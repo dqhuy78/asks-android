@@ -1,8 +1,10 @@
-package www.seotoolzz.com.Ask;
+package www.seotoolzz.com.Ask.Activity;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import www.seotoolzz.com.Ask.R;
 
 public class CreatNewQuestion extends AppCompatActivity {
 

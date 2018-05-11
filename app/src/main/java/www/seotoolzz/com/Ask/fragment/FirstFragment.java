@@ -1,4 +1,4 @@
-package www.seotoolzz.com.Ask;
+package www.seotoolzz.com.Ask.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import www.seotoolzz.com.Ask.model.DetailQuestionActivity;
+import www.seotoolzz.com.Ask.model.QuestionListAdapter;
+import www.seotoolzz.com.Ask.R;
+import www.seotoolzz.com.Ask.model.Question;
 
 public class FirstFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";

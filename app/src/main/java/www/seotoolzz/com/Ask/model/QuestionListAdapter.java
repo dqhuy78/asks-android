@@ -1,4 +1,4 @@
-package www.seotoolzz.com.Ask;
+package www.seotoolzz.com.Ask.model;
 
 import android.content.Context;
 import android.view.View;
@@ -7,6 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import www.seotoolzz.com.Ask.R;
+import www.seotoolzz.com.Ask.model.Question;
 
 /**
  * Created by ngant on 4/15/2018.

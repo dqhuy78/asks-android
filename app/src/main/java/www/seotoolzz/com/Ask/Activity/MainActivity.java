@@ -1,4 +1,4 @@
-package www.seotoolzz.com.Ask;
+package www.seotoolzz.com.Ask.Activity;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import www.seotoolzz.com.Ask.fragment.FirstFragment;
+import www.seotoolzz.com.Ask.R;
+import www.seotoolzz.com.Ask.fragment.SecondFragment;
+import www.seotoolzz.com.Ask.fragment.ThirdFragment;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -102,5 +107,7 @@ public class MainActivity extends AppCompatActivity
         public CharSequence getPageTitle(int position) {
             return mTabsTitle[position];
         }
+
+
     }
 }

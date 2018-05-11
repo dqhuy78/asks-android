@@ -1,4 +1,4 @@
-package www.seotoolzz.com.Ask;
+package www.seotoolzz.com.Ask.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import www.seotoolzz.com.Ask.R;
 
 /**
  * Created by ngant on 4/16/2018.
