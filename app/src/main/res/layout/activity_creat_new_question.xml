@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingEnd="20dp"
+    android:paddingStart="20dp"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/pageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView2"
+        android:text="Asks a question"
+        android:textSize="30sp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editTitle"
+        android:layout_below="@+id/pageTitle"
+        android:layout_marginTop="35dp"
+        android:text="Question title:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/editTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="5dp"
+        android:inputType="textPersonName"
+        android:hint="Your question title?"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTitle"
+        android:layout_marginTop="10dp"
+        android:text="Tag:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp"/>
+
+    <EditText
+        android:id="@+id/editTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="5dp"
+        android:inputType="textPersonName"
+        android:hint="Your question tags?"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTag"
+        android:layout_marginTop="20dp"
+        android:text="Your question here:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/editQues"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="15dp"
+        android:gravity="start"
+        android:hint="Your question?"
+        android:inputType="textMultiLine"
+        android:selectAllOnFocus="true"
+        android:singleLine="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editQues"
+        android:layout_below="@+id/editQues"
+        android:layout_marginTop="30dp"
+        android:text="Draft" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/button"
+        android:layout_marginEnd="26dp"
+        android:layout_toStartOf="@+id/button"
+        android:text="Publish"
+        android:background="@color/colorPrimary"
+        android:textColor="#fff"/>
+
+</RelativeLayout>

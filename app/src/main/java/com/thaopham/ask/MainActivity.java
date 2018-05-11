@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.thaopham.ask.Login.LoginActivity;
 import com.thaopham.ask.Login.SignUpActivity;
+import com.thaopham.ask.Question.QuestionListAdapter;
+import com.thaopham.ask.Question.QuestionMainActivity;
 
 public class MainActivity extends AppCompatActivity {
     Button btnSignUp;
@@ -18,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnSignUp = (Button) findViewById(R.id.btnToSignUp);
-        btnSignUp.setOnClickListener(new View.OnClickListener(){
+        btnSignUp.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v)
             {
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button btnLogin = findViewById(R.id.btnToLogin);
-        btnLogin.setOnClickListener(new View.OnClickListener(){
+        btnLogin.setOnClickListener(new OnClickListener(){
             public void onClick(View v)
             {
                 Intent changeView = new Intent(MainActivity.this, LoginActivity.class);

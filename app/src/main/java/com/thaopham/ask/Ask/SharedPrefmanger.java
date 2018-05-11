@@ -3,6 +3,10 @@ package com.thaopham.ask.Ask;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.thaopham.ask.Answer.Answer;
+import com.thaopham.ask.Question.Question;
+import com.thaopham.ask.Question.QuestionMainActivity;
+
 public class SharedPrefmanger {
     private static final String SHARED_PREF_NAME ="simpliedshared";
     private static final String KEY_USERNAME = "keyusername";
@@ -37,7 +41,7 @@ public class SharedPrefmanger {
     //phuong thuc nay kiem tra nguoi dung da dang nhap hay chua
     public boolean isLoggedIn(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(KEY_USERNAME, null)!= null;
+        return sharedPreferences.getString(KEY_EMAIL, null)!= null;
     }
 
     //phuong thuc cho dang ky tai khoan
@@ -46,7 +50,15 @@ public class SharedPrefmanger {
         return new User(
                 sharedPreferences.getInt(KEY_ID, -1),
                 sharedPreferences.getString(KEY_USERNAME, null),
-                sharedPreferences.getString(KEY_EMAIL, null)
+                sharedPreferences.getString(KEY_EMAIL, null),
+                sharedPreferences.getString(KEY_PASSWORD, null)
         );
     }
+    //them cau hoi
+//    public Question getQuestion(){
+//        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//        return new Answer(
+//                sharedPreferences.getInt()
+//        )
+//    }
 }

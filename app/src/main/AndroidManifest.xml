@@ -13,7 +13,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,6 +29,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login.ProfileActivity"></activity>
+        <activity android:name=".Question.QuestionMainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.ALL_APPS"/>
+                <category android:name="android.intent.category.ALTERNATIVE"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Question.DetailQuestionActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.ALL_APPS"/>
+                <category android:name="android.intent.category.ALTERNATIVE"/>
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

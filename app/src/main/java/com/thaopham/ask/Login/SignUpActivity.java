@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,8 @@ import com.thaopham.ask.Ask.Ask_Controller;
 import com.thaopham.ask.Ask.SharedPrefmanger;
 import com.thaopham.ask.Ask.User;
 import com.thaopham.ask.MainActivity;
+import com.thaopham.ask.Question.DetailQuestionActivity;
+import com.thaopham.ask.Question.QuestionListAdapter;
 import com.thaopham.ask.R;
 
 import org.json.JSONException;
@@ -44,14 +47,22 @@ public class SignUpActivity extends AppCompatActivity{
         txtToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent changeView = new Intent(SignUpActivity.this, ProfileActivity.class);
+                Intent changeView = new Intent(SignUpActivity.this, LoginActivity.class);
+                SignUpActivity.this.startActivity(changeView);
+            }
+        });
+
+        Button btnSignup = (Button) findViewById(R.id.btnSignup);
+        btnSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent changeView = new Intent(SignUpActivity.this, LoginActivity.class);
                 SignUpActivity.this.startActivity(changeView);
             }
         });
 
         if (SharedPrefmanger.getmInstance(this).isLoggedIn()){
-            finish();
-            startActivity(new Intent(this, ProfileActivity.class));
+            startActivity(new Intent(this, QuestionListAdapter.class));
             return;
         }
 
@@ -70,57 +81,21 @@ public class SignUpActivity extends AppCompatActivity{
         final String password = edtPassword.getText().toString().trim();
         final String password_confirm = edtPasswordConfirm.getText().toString().trim();
 
-        if(TextUtils.isEmpty(username)){
-           edtUsername.setError("Please enter username");
-           edtUsername.requestFocus();
-           return;
-        }
-
-        if(TextUtils.isEmpty(email)){
-            edtEmail.setError("Please enter your email");
-            edtEmail.requestFocus();
-            return;
-        }
-
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            edtEmail.setError("Enter a valid email");
-            edtEmail.requestFocus();
-            return;
-        }
-
-        if(TextUtils.isEmpty(password)){
-            edtPassword.setError("Please enter your password");
-            edtPassword.requestFocus();
-            return;
-        }
-
-        if (TextUtils.isEmpty(password_confirm)){
-            edtPasswordConfirm.setError("Please confirm your password");
-            edtPasswordConfirm.requestFocus();
-            return;
-        }
-
+//
         StringRequest stringRequest = new StringRequest(Request.Method.POST, urlSignup, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject obj = new JSONObject(response);
+                    JSONObject meta = obj.getJSONObject("meta");
+                    int status = meta.getInt("status");
 
-                    //neu khong co loi
-                    if (!obj.getBoolean("error")) {
-                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                    if (status == 700) {
+//                        JSONObject message = meta.getJSONObject("message");
+//                        Toast.makeText(getApplicationContext(),  )
 
-                        JSONObject userJson = obj.getJSONObject("user");
-                        //tao moi nguoi dung
-                        User user = new User(userJson.getInt("id"), userJson.getString("username"), userJson.getString("email"), userJson.getString("password"), userJson.getString("password_confirm"));
-
-                        //luu lai trong shared preferences
-                        SharedPrefmanger.getmInstance(getApplicationContext()).userLogin(user);
-
-                        finish();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     } else {
-                        Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), obj.getJSONObject("message").getString("main"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
