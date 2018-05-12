@@ -26,7 +26,8 @@
         android:inputType="textPersonName"
         android:hint="Username"
         android:textColorLink="@color/colorPrimary"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:id="@+id/edtEmail"
@@ -38,7 +39,8 @@
         android:inputType="textEmailAddress"
         android:hint="Email"
         android:textColorLink="@color/colorPrimary"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:id="@+id/edtPassword"
@@ -50,7 +52,8 @@
         android:inputType="textPassword"
         android:hint="Password"
         android:textColorLink="@color/colorPrimary"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:id="@+id/edtPasswordConfirm"
@@ -62,7 +65,8 @@
         android:inputType="textPassword"
         android:hint="Password Confirm"
         android:textColorLink="@color/colorPrimary"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:layout_alignParentLeft="true" />
 
     <Button
         android:id="@+id/btnSignup"
@@ -74,7 +78,8 @@
         android:text="SIGN-UP"
         android:background="@color/colorPrimary"
         android:textColor="#fff"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/txtToLogin"
@@ -84,6 +89,7 @@
         android:layout_below="@+id/btnSignup"
         android:layout_marginTop="15dp"
         android:text="Back to login"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

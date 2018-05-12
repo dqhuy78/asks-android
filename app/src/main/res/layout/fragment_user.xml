@@ -43,7 +43,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10px"
@@ -55,7 +55,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/userEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -75,24 +75,14 @@
             android:visibility="visible">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btnMyQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:gravity="start"
                 android:text="My Question"
-                android:textAlignment="viewStart"
-                android:gravity="start" />
-
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="Change Password"
-                android:textAlignment="viewStart"
-                android:gravity="start" />
+                android:textAlignment="viewStart" />
 
             <Button
                 android:id="@+id/btnLogout"
@@ -100,9 +90,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:gravity="start"
                 android:text="LogOut"
-                android:textAlignment="viewStart"
-                android:gravity="start" />
+                android:textAlignment="viewStart" />
 
         </LinearLayout>
 
