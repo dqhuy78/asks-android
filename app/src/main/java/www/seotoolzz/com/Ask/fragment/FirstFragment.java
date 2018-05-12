@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -70,8 +71,36 @@ public class FirstFragment extends Fragment {
         lvQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(),"Item",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(),myArrayQuestion[position],Toast.LENGTH_LONG).show();
+
+
+                TextView title = (TextView) view.findViewById(R.id.txtTitle);
+                String titleQuestion = title.getText().toString();
+
+                TextView content = (TextView) view.findViewById(R.id.txtContent);
+                String contentQuestion = content.getText().toString();
+
+                TextView userName = (TextView) view.findViewById(R.id.txtUserName);
+                String userNameQuestion = userName.getText().toString();
+
+                TextView tag = (TextView) view.findViewById(R.id.tag1);
+                String tag1Question = tag.getText().toString();
+
+                TextView vote = (TextView) view.findViewById(R.id.txtVoteNumber);
+                String voteQuestion = vote.getText().toString();
+
+                String idQuestion = String.valueOf(position);
+
+                Toast.makeText(getContext(),idQuestion,Toast.LENGTH_LONG).show();
+
+
                 Intent intent = new Intent(getActivity(),DetailQuestionActivity.class);
+                intent.putExtra("id", idQuestion);
+                intent.putExtra("title",titleQuestion);
+                intent.putExtra("content",contentQuestion);
+                intent.putExtra("username",userNameQuestion);
+                intent.putExtra("vote",voteQuestion);
+
                 startActivity(intent);
             }
         });

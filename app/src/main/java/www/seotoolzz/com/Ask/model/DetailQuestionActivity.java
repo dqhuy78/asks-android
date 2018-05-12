@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,6 +30,13 @@ public class DetailQuestionActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        TextView tvTitle = (TextView) findViewById(R.id.txtTitle);
+        TextView tvContent = (TextView) findViewById(R.id.txtContent);
+        TextView tvTag = (TextView) findViewById(R.id.tag1);
+        TextView tvUserName = (TextView) findViewById(R.id.txtUserName);
+        TextView tvNumberVote = (TextView) findViewById(R.id.txtVoteNumber);
+
+
         this.lvAnswer = (ListView)findViewById(R.id.listAnswer);
         myArrayAnswer = new ArrayList<>();
 
@@ -37,6 +45,22 @@ public class DetailQuestionActivity extends AppCompatActivity {
 
         adapter = new AnswerListAdapter(lvAnswer.getContext(),myArrayAnswer);
         lvAnswer.setAdapter(adapter);
+        Intent recIntent = getIntent();
+
+        String title = recIntent.getStringExtra("title");
+        String content = recIntent.getStringExtra("content");
+        String username = recIntent.getStringExtra("username");
+        String vote = recIntent.getStringExtra("vote");
+
+        int temp = recIntent.getIntExtra("id", 0);
+
+        tvTitle.setText(title);
+        tvContent.setText(content);
+       /* tvTag.setText();*/
+        tvUserName.setText(username);
+        tvNumberVote.setText(vote);
+
+        Toast.makeText(getApplicationContext(),String.valueOf(temp),Toast.LENGTH_LONG).show();
 
         Button addAnswer = (Button)findViewById(R.id.btnAddAnswer);
         addAnswer.setOnClickListener( new View.OnClickListener(){
