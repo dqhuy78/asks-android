@@ -81,7 +81,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="My Question"
-                android:textAlignment="viewStart" />
+                android:textAlignment="viewStart"
+                android:gravity="start" />
 
             <Button
                 android:id="@+id/button4"
@@ -90,16 +91,18 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="Change Password"
-                android:textAlignment="viewStart" />
+                android:textAlignment="viewStart"
+                android:gravity="start" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="LogOut"
-                android:textAlignment="viewStart" />
+                android:textAlignment="viewStart"
+                android:gravity="start" />
 
         </LinearLayout>
 
