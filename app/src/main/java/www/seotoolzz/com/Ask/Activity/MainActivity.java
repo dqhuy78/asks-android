@@ -1,7 +1,6 @@
 package www.seotoolzz.com.Ask.Activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,9 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import www.seotoolzz.com.Ask.Helper.Helper;
 import www.seotoolzz.com.Ask.fragment.FirstFragment;
 import www.seotoolzz.com.Ask.R;
 import www.seotoolzz.com.Ask.fragment.SecondFragment;
@@ -29,32 +26,25 @@ public class MainActivity extends AppCompatActivity
     private int[] mTabsIcons = {
             R.drawable.message,
             R.drawable.chat,
-            R.drawable.notification
-    };
+            R.drawable.notification};
 
     FloatingActionButton btnFab;
-
+    Button btnToLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Go to create question page
+// icon creat new question
         btnFab = (FloatingActionButton) findViewById(R.id.fab);
         btnFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!Helper.isLogin(MainActivity.this)) {
-                    Toast.makeText(getApplicationContext(),
-                            "Please login before do this",
-                            Toast.LENGTH_SHORT
-                    ).show();
-                } else {
-                    Intent changeView = new Intent(MainActivity.this, CreatNewQuestion.class);
-                    startActivity(changeView);
-                }
+                Intent changeView = new Intent(MainActivity.this, CreatNewQuestion.class);
+                startActivity(changeView);
             }
         });
+
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
@@ -70,6 +60,7 @@ public class MainActivity extends AppCompatActivity
                 if (tab != null)
                     tab.setCustomView(pagerAdapter.getTabView(i));
             }
+
             mTabLayout.getTabAt(0).getCustomView().setSelected(true);
         }
 
@@ -95,8 +86,10 @@ public class MainActivity extends AppCompatActivity
         @Override
         public Fragment getItem(int pos) {
             switch (pos) {
+
                 case 0:
                     return FirstFragment.newInstance(1);
+
                 case 1:
                     return SecondFragment.newInstance(2);
                 case 2:
@@ -114,5 +107,7 @@ public class MainActivity extends AppCompatActivity
         public CharSequence getPageTitle(int position) {
             return mTabsTitle[position];
         }
+
+
     }
 }
