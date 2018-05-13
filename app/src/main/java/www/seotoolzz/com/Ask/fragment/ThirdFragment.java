@@ -58,6 +58,11 @@ public class ThirdFragment extends Fragment implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPageNo = getArguments().getInt(ARG_PAGE);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         if (Helper.isLogin((AppCompatActivity) getActivity())) {
             SharedPreferences sharePrefs = getActivity().getApplicationContext().getSharedPreferences("ASKS", MODE_PRIVATE);
             Log.d("TEST_COND", sharePrefs.getString("username", "EMPTY").equals("EMPTY") + "");

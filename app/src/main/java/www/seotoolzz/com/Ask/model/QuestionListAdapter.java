@@ -1,9 +1,14 @@
 package www.seotoolzz.com.Ask.model;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -40,22 +45,27 @@ public class QuestionListAdapter extends BaseAdapter {
         return position;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = View.inflate(myContext, R.layout.item_question_list,null);
         TextView tvTitle = (TextView)v.findViewById(R.id.txtTitle);
-        TextView tvContent = (TextView)v.findViewById(R.id.txtContent);
-        TextView tvTag = (TextView)v.findViewById(R.id.tag1);
         TextView tvUserName = (TextView)v.findViewById(R.id.txtUserName);
         TextView tvNumberVote = (TextView)v.findViewById(R.id.txtVoteNumber);
+        TextView tvDate = (TextView) v.findViewById(R.id.createDate);
+        LinearLayout layout = (LinearLayout) v.findViewById(R.id.voteBgr);
 
         tvTitle.setText(myQuestion.get(position).getTitle());
-        tvContent.setText(myQuestion.get(position).getContent());
-        tvTag.setText(myQuestion.get(position).getTag());
-        tvUserName.setText(myQuestion.get(position).getUserName());
-        tvNumberVote.setText(myQuestion.get(position).getVoteNumber());
+        tvUserName.setText("Ask by: " + myQuestion.get(position).getUsername());
+        tvNumberVote.setText(myQuestion.get(position).getVote() + "");
+        tvDate.setText(myQuestion.get(position).getDate());
+        if (myQuestion.get(position).isSolve() == 2) {
+            layout.setBackgroundColor(Color.parseColor("#318E08"));
+            tvNumberVote.setTextColor(Color.WHITE);
+        }
 
         v.setTag(myQuestion.get(position).getId());
+
         return v;
     }
 

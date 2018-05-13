@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-// icon creat new question
         btnFab = (FloatingActionButton) findViewById(R.id.fab);
         btnFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,10 +85,8 @@ public class MainActivity extends AppCompatActivity
         @Override
         public Fragment getItem(int pos) {
             switch (pos) {
-
                 case 0:
                     return FirstFragment.newInstance(1);
-
                 case 1:
                     return SecondFragment.newInstance(2);
                 case 2:
@@ -107,7 +104,5 @@ public class MainActivity extends AppCompatActivity
         public CharSequence getPageTitle(int position) {
             return mTabsTitle[position];
         }
-
-
     }
 }

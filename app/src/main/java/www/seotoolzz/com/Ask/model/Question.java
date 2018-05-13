@@ -7,18 +7,28 @@ package www.seotoolzz.com.Ask.model;
 public class Question {
     private  int id;
     private String title;
-    private String content;
-    private String tag;
-    private String userName;
-    private String voteNumber;
+    private String username;
+    private int vote;
+    private String date;
+    private int solve;
 
-    public Question(int id, String title, String content, String tag, String userName, String voteNumber) {
+    public int isSolve() {
+        return 2;
+        // return solve;
+    }
+
+    public void setSolve(int solve) {
+        this.solve = solve;
+    }
+
+    public Question(int id, String title, String userName, int vote, String date, int solve) {
         this.id = id;
         this.title = title;
-        this.content = content;
-        this.tag = tag;
-        this.userName = userName;
-        this.voteNumber = voteNumber;
+        this.username = userName;
+        this.vote = vote;
+        this.date = date;
+        this.solve = solve;
+
     }
 
     public int getId() {
@@ -37,36 +47,28 @@ public class Question {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getUsername() {
+        return username;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getTag() {
-        return tag;
+    public int getVote() {
+        return vote;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setVote(int vote) {
+        this.vote = vote;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getDate() {
+        return date;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getVoteNumber() {
-        return voteNumber;
-    }
-
-    public void setVoteNumber(String voteNumber) {
-        this.voteNumber = voteNumber;
+    public void setDate(String date) {
+        this.date = date;
     }
 }
 
