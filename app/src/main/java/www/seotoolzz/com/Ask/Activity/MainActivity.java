@@ -9,11 +9,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import www.seotoolzz.com.Ask.Helper.Helper;
 import www.seotoolzz.com.Ask.fragment.FirstFragment;
 import www.seotoolzz.com.Ask.R;
 import www.seotoolzz.com.Ask.fragment.SecondFragment;
@@ -39,8 +42,16 @@ public class MainActivity extends AppCompatActivity
         btnFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent changeView = new Intent(MainActivity.this, CreatNewQuestion.class);
-                startActivity(changeView);
+                if (!Helper.isLogin(MainActivity.this)) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please login before do this",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                } else {
+                    Intent changeView = new Intent(MainActivity.this, CreatNewQuestion.class);
+                    startActivity(changeView);
+                }
+
             }
         });
 
@@ -76,9 +87,11 @@ public class MainActivity extends AppCompatActivity
         }
 
         public View getTabView(int position) {
+            Log.d("POS_TAB", "getTabView: " + position);
             View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.toolbar, null);
             ImageView icon = (ImageView) view.findViewById(R.id.icon);
             icon.setImageResource(mTabsIcons[position]);
+
             return view;
         }
 

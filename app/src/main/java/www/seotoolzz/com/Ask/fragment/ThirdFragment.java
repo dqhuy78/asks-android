@@ -51,6 +51,7 @@ public class ThirdFragment extends Fragment implements View.OnClickListener{
         args.putInt(ARG_PAGE, pageNo);
         ThirdFragment fragment = new ThirdFragment();
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -58,11 +59,6 @@ public class ThirdFragment extends Fragment implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPageNo = getArguments().getInt(ARG_PAGE);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         if (Helper.isLogin((AppCompatActivity) getActivity())) {
             SharedPreferences sharePrefs = getActivity().getApplicationContext().getSharedPreferences("ASKS", MODE_PRIVATE);
             Log.d("TEST_COND", sharePrefs.getString("username", "EMPTY").equals("EMPTY") + "");
@@ -161,6 +157,12 @@ public class ThirdFragment extends Fragment implements View.OnClickListener{
                         sharePrefs.putString("email", data.getString("email"));
                         sharePrefs.putString("role", data.getString("role"));
                         sharePrefs.commit();
+
+                        TextView edtUsername = (TextView) view.findViewById(R.id.username);
+                        TextView edtUserEmail = (TextView) view.findViewById(R.id.userEmail);
+
+                        edtUsername.setText(data.getString("username"));
+                        edtUserEmail.setText(data.getString("email"));
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), res.getJSONObject("meta").getJSONObject("message").getString("main"), Toast.LENGTH_LONG).show();
                     }

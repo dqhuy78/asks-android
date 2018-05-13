@@ -13,8 +13,7 @@ public class Question {
     private int solve;
 
     public int isSolve() {
-        return 2;
-        // return solve;
+        return solve;
     }
 
     public void setSolve(int solve) {

@@ -33,7 +33,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="www.seotoolzz.com.Ask.Activity.MainActivity" />
         </activity>
-        <activity android:name=".model.DetailQuestionActivity">
+        <activity android:name=".Activity.DetailQuestionActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="www.seotoolzz.com.Ask.Activity.MainActivity" />
@@ -41,7 +41,7 @@
         <activity android:name=".Activity.AddAnswerActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="www.seotoolzz.com.Ask.model.DetailQuestionActivity" />
+                android:value="www.seotoolzz.com.Ask.Activity.DetailQuestionActivity" />
         </activity>
     </application>
 

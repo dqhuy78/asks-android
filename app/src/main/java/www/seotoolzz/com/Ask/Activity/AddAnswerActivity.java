@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 import www.seotoolzz.com.Ask.R;
-import www.seotoolzz.com.Ask.model.Answer;
-import www.seotoolzz.com.Ask.model.DetailQuestionActivity;
 
 public class AddAnswerActivity extends AppCompatActivity {
 

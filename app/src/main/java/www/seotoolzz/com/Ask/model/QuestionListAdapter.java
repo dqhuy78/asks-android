@@ -60,7 +60,7 @@ public class QuestionListAdapter extends BaseAdapter {
         tvNumberVote.setText(myQuestion.get(position).getVote() + "");
         tvDate.setText(myQuestion.get(position).getDate());
         if (myQuestion.get(position).isSolve() == 2) {
-            layout.setBackgroundColor(Color.parseColor("#318E08"));
+            layout.setBackgroundColor(Color.parseColor("#00C853"));
             tvNumberVote.setTextColor(Color.WHITE);
         }
 
