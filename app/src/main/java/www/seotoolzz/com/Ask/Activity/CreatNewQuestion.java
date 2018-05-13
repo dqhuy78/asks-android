@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -94,7 +95,16 @@ public class CreatNewQuestion extends AppCompatActivity {
                     }
 
                 }
-            });
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("title", title);
+                    params.put("content", question);
+
+                    return params;
+                }
+            };
             AsksController.getmInstance(this).addToRequestQueue(stringRequest);
         }
     }
