@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@color/colorOrange"
-        android:text="Add Answer"
+        android:text="Answer This Question"
         android:textColor="@android:color/background_light" />
 
 </LinearLayout>

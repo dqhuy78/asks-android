@@ -20,25 +20,17 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import www.seotoolzz.com.Ask.Activity.AddAnswerActivity;
 import www.seotoolzz.com.Ask.Helper.Helper;
 import www.seotoolzz.com.Ask.R;
 import www.seotoolzz.com.Ask.RequestController.AsksController;
 import www.seotoolzz.com.Ask.model.Answer;
 import www.seotoolzz.com.Ask.model.AnswerListAdapter;
-import www.seotoolzz.com.Ask.model.Question;
-import www.seotoolzz.com.Ask.model.QuestionListAdapter;
 
 public class DetailQuestionActivity extends AppCompatActivity {
 
@@ -82,12 +74,12 @@ public class DetailQuestionActivity extends AppCompatActivity {
         questionId = recIntent.getStringExtra("id");
         getQuestion(questionId);
 
-        Button addAnswer = (Button)findViewById(R.id.btnAddAnswer);
+        Button addAnswer = (Button) findViewById(R.id.btnAddAnswer);
         addAnswer.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(getBaseContext(), AddAnswerActivity.class);
+                Intent intent = new Intent(DetailQuestionActivity.this, AddAnswerActivity.class);
+                intent.putExtra("id", String.valueOf(questionId));
                 startActivity(intent);
             }
         });
