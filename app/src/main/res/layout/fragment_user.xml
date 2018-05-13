@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/layout1"
@@ -46,10 +46,9 @@
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10px"
-                    android:layout_marginTop="20px"
+                    android:layout_marginRight="20dp"
                     android:layout_weight="1"
-                    android:text="NguyenNga"
+                    android:gravity="center_vertical"
                     android:textColor="@android:color/background_dark"
                     android:textSize="30dp"
                     android:textStyle="bold" />
@@ -59,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="ngant1096@gmail.com"
+                    android:gravity="top"
                     android:textSize="15dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -78,21 +77,34 @@
                 android:id="@+id/btnMyQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="start"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center_vertical|start"
+                android:paddingLeft="15dp"
+                android:paddingStart="15dp"
                 android:text="My Question"
-                android:textAlignment="viewStart" />
+                android:textAlignment="viewStart"
+                android:textColor="#FFF"
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="start"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center_vertical|start"
+                android:paddingLeft="15dp"
+                android:paddingStart="15dp"
                 android:text="LogOut"
-                android:textAlignment="viewStart" />
+                android:textAlignment="viewStart"
+                android:textColor="#FFF"
+                android:textSize="18dp" />
 
         </LinearLayout>
 
@@ -120,7 +132,13 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@color/colorOrange"
-            android:text="Log In" />
+            android:gravity="center_vertical|start"
+            android:paddingLeft="15dp"
+            android:paddingStart="15dp"
+            android:text="Log In"
+            android:textAlignment="textStart"
+            android:textColor="#FFF"
+            android:textSize="18dp" />
 
         <Button
             android:id="@+id/btnToSignUp"
@@ -130,7 +148,14 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@color/colorOrange"
-            android:text="Sign Up" />
+            android:gravity="center_vertical|start"
+            android:paddingLeft="15dp"
+            android:paddingStart="15dp"
+            android:text="Sign Up"
+            android:textAlignment="textStart"
+            android:textColor="#FFF"
+            android:textSize="18dp" />
+
     </LinearLayout>
 
 </LinearLayout>

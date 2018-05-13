@@ -1,6 +1,7 @@
 package www.seotoolzz.com.Ask.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ import www.seotoolzz.com.Ask.RequestController.AsksController;
 
 public class CreatNewQuestion extends AppCompatActivity {
 
-    Button btnPublish;
+    Button btnPublish, btnDraft;
     EditText edTitle;
     EditText edTags;
     EditText edQuestion;
@@ -51,15 +52,23 @@ public class CreatNewQuestion extends AppCompatActivity {
         btnPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                publish();
+                createQuestion(1);
+            }
+        });
+
+        btnDraft = (Button) findViewById(R.id.btnDraf);
+        btnDraft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createQuestion(0);
             }
         });
     }
 
-    private void publish() {
+    private void createQuestion(int status) {
         final String title = this.edTitle.getText().toString();
-        final String tags = this.edTags.getText().toString();
         final String question = this.edQuestion.getText().toString();
+        final int questionStatus = status;
 
         if (title.trim().length() < 1 || question.trim().length() < 1) {
             Toast.makeText(getApplicationContext(), "Please fill at least title and questions field", Toast.LENGTH_LONG).show();
@@ -74,7 +83,8 @@ public class CreatNewQuestion extends AppCompatActivity {
 
                         if (code == 700) {
                             Toast.makeText(getApplicationContext(), "Publish success", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            Intent changeView = new Intent(CreatNewQuestion.this, MainActivity.class);
+                            startActivity(changeView);
                         } else {
                             Toast.makeText(getApplicationContext(), res.getJSONObject("meta").getJSONObject("message").getString("main"), Toast.LENGTH_LONG).show();
                         }
@@ -101,6 +111,15 @@ public class CreatNewQuestion extends AppCompatActivity {
                     Map<String, String> params = new HashMap<>();
                     params.put("title", title);
                     params.put("content", question);
+                    params.put("status", String.valueOf(questionStatus));
+
+                    return params;
+                }
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    SharedPreferences sharePrefs = CreatNewQuestion.this.getApplicationContext().getSharedPreferences("ASKS", MODE_PRIVATE);
+                    params.put("Authorization", sharePrefs.getString("token", null));
 
                     return params;
                 }

@@ -16,7 +16,8 @@
         android:text="Asks a question"
         android:textSize="30sp"
         android:textColor="@color/colorPrimary"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_alignLeft="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView2"
@@ -27,7 +28,8 @@
         android:layout_marginTop="35dp"
         android:text="Question title:"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_alignLeft="@+id/edTitle" />
 
     <EditText
         android:id="@+id/edTitle"
@@ -39,7 +41,8 @@
         android:inputType="textPersonName"
         android:hint="Your question title?"
         android:textSize="16sp"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="#191919"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/textView3"
@@ -60,7 +63,7 @@
         android:inputType="textPersonName"
         android:hint="Your question tags?"
         android:textSize="16sp"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="#191919"/>
 
     <TextView
         android:id="@+id/textView4"
@@ -84,27 +87,31 @@
         android:inputType="textMultiLine"
         android:selectAllOnFocus="true"
         android:singleLine="false"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp" />
+        android:textColor="#191919"
+        android:textSize="16sp"
+        android:layout_alignParentLeft="true" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnDraf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/edQuestion"
         android:layout_below="@+id/edQuestion"
         android:layout_marginTop="30dp"
-        android:text="Draft" />
+        android:text="Draft"
+        android:layout_alignRight="@+id/edQuestion" />
 
     <Button
         android:id="@+id/btnPublish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button"
+        android:layout_alignTop="@+id/btnDraf"
         android:layout_marginEnd="26dp"
-        android:layout_toStartOf="@+id/button"
+        android:layout_toStartOf="@+id/btnDraf"
         android:background="@color/colorPrimary"
         android:text="Publish"
-        android:textColor="#fff" />
+        android:textColor="#fff"
+        android:layout_marginRight="26dp"
+        android:layout_toLeftOf="@+id/btnDraf" />
 
 </RelativeLayout>

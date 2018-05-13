@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,9 +58,6 @@ public class FirstFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mPageNo = getArguments().getInt(ARG_PAGE);
         myArrayQuestion = new ArrayList<>();
-        getQuestionList(1);
-        Log.d("STATUS", isLoading + "");
-
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,7 +65,7 @@ public class FirstFragment extends Fragment {
         Log.d("STATUS_2", isLoading + "");
         View view = inflater.inflate(R.layout.listview_question, container, false);
 
-        this.lvQuestion = (ListView)view.findViewById(R.id.lv_question);
+        this.lvQuestion = (ListView) view.findViewById(R.id.lv_question);
         if (myArrayQuestion.size() < 1) {
             getQuestionList(1);
         } else {
@@ -105,6 +103,17 @@ public class FirstFragment extends Fragment {
             }
         });
 
+        final SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.questionSwipe);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d("SWIPE_LAYOUT", "onRefresh: Refresh");
+                myArrayQuestion.clear();
+                getQuestionList(1);
+                swipeLayout.setRefreshing(false);
+            }
+        });
+        
         return view;
     }
 
@@ -144,9 +153,12 @@ public class FirstFragment extends Fragment {
                                     q.getInt("status")
                             ));
                         }
-                        // Init adapter
-                        adapter = new QuestionListAdapter(getContext(), myArrayQuestion);
-                        lvQuestion.setAdapter(adapter);
+                        if (myArrayQuestion.size() < 17) {
+                            adapter = new QuestionListAdapter(getContext(), myArrayQuestion);
+                            lvQuestion.setAdapter(adapter);
+                        } else {
+                            adapter.notifyDataSetChanged();
+                        }
                         isLoading = false;
                         Log.d("STATUS_3", isLoading + "");
                     } else {
