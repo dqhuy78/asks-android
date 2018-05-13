@@ -1,7 +1,9 @@
 package www.seotoolzz.com.Ask.Helper;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import static android.content.Context.MODE_PRIVATE;
 

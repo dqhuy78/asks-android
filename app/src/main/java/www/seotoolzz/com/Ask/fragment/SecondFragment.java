@@ -32,6 +32,7 @@ public class SecondFragment extends Fragment {
         args.putInt(ARG_PAGE, pageNo);
         SecondFragment fragment = new SecondFragment();
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -39,7 +40,6 @@ public class SecondFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPageNo = getArguments().getInt(ARG_PAGE);
-
     }
 
     @Override

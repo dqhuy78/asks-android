@@ -51,6 +51,7 @@ public class ThirdFragment extends Fragment implements View.OnClickListener{
         args.putInt(ARG_PAGE, pageNo);
         ThirdFragment fragment = new ThirdFragment();
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -156,6 +157,12 @@ public class ThirdFragment extends Fragment implements View.OnClickListener{
                         sharePrefs.putString("email", data.getString("email"));
                         sharePrefs.putString("role", data.getString("role"));
                         sharePrefs.commit();
+
+                        TextView edtUsername = (TextView) view.findViewById(R.id.username);
+                        TextView edtUserEmail = (TextView) view.findViewById(R.id.userEmail);
+
+                        edtUsername.setText(data.getString("username"));
+                        edtUserEmail.setText(data.getString("email"));
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), res.getJSONObject("meta").getJSONObject("message").getString("main"), Toast.LENGTH_LONG).show();
                     }
