@@ -22,7 +22,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText"
+        android:layout_alignStart="@+id/edTitle"
         android:layout_below="@+id/pageTitle"
         android:layout_marginTop="35dp"
         android:text="Question title:"
@@ -30,7 +30,7 @@
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -45,14 +45,14 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/edTitle"
         android:layout_marginTop="10dp"
         android:text="Tag:"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"/>
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edTags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
@@ -66,14 +66,14 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/edTags"
         android:layout_marginTop="20dp"
         android:text="Your question here:"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/edQuestion"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_alignParentStart="true"
@@ -91,20 +91,20 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/editText3"
-        android:layout_below="@+id/editText3"
+        android:layout_alignEnd="@+id/edQuestion"
+        android:layout_below="@+id/edQuestion"
         android:layout_marginTop="30dp"
         android:text="Draft" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnPublish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/button"
         android:layout_marginEnd="26dp"
         android:layout_toStartOf="@+id/button"
-        android:text="Publish"
         android:background="@color/colorPrimary"
-        android:textColor="#fff"/>
+        android:text="Publish"
+        android:textColor="#fff" />
 
 </RelativeLayout>
