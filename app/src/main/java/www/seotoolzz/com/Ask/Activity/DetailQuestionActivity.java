@@ -68,6 +68,9 @@ public class DetailQuestionActivity extends AppCompatActivity {
         myArrayAnswer.add(new Answer(1,"good","Huy","1","2/5/2018"));
         myArrayAnswer.add(new Answer(1,"good","Thao","2","2/5/2018"));
 
+        myArrayAnswer.add(new Answer(1,"good","Huy","1","2/5/2018"));
+        myArrayAnswer.add(new Answer(1,"good","Thao","2","2/5/2018"));
+
         adapter = new AnswerListAdapter(lvAnswer.getContext(),myArrayAnswer);
         lvAnswer.setAdapter(adapter);
         Intent recIntent = getIntent();
@@ -83,6 +86,26 @@ public class DetailQuestionActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button btnEdit = (Button) findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        Button btnDelete = (Button) findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        Button btnShare = (Button) findViewById(R.id.btnShare);
+        btnShare.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
 
         ImageButton btnUpVote = (ImageButton) findViewById(R.id.upVote);
         btnUpVote.setOnClickListener(new View.OnClickListener() {
