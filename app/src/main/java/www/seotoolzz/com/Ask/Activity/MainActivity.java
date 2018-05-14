@@ -15,16 +15,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import www.seotoolzz.com.Ask.Helper.Helper;
-import www.seotoolzz.com.Ask.fragment.FirstFragment;
+import www.seotoolzz.com.Ask.Fragment.FirstFragment;
 import www.seotoolzz.com.Ask.R;
-import www.seotoolzz.com.Ask.fragment.SecondFragment;
-import www.seotoolzz.com.Ask.fragment.ThirdFragment;
+import www.seotoolzz.com.Ask.Fragment.SecondFragment;
+import www.seotoolzz.com.Ask.Fragment.ThirdFragment;
+import android.content.SharedPreferences;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
+import www.seotoolzz.com.Ask.RequestController.AsksController;
 
 public class MainActivity extends AppCompatActivity
 {
     private TabLayout mTabLayout;
+    private String getUserUrl = "http://laravel-demo-deploy.herokuapp.com/api/v0/auth/user";
 
     private int[] mTabsIcons = {
             R.drawable.message,
@@ -32,11 +43,18 @@ public class MainActivity extends AppCompatActivity
             R.drawable.notification};
 
     FloatingActionButton btnFab;
-    Button btnToLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (Helper.isLogin((AppCompatActivity) MainActivity.this)) {
+            android.content.SharedPreferences sharePrefs = MainActivity.this.getApplicationContext().getSharedPreferences("ASKS", MODE_PRIVATE);
+            Log.d("TEST_COND", sharePrefs.getString("username", "EMPTY").equals("EMPTY") + "");
+            if (sharePrefs.getString("username", "EMPTY").equals("EMPTY")) {
+                getUserInfo();
+            }
+        }
 
         btnFab = (FloatingActionButton) findViewById(R.id.fab);
         btnFab.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +92,57 @@ public class MainActivity extends AppCompatActivity
             mTabLayout.getTabAt(0).getCustomView().setSelected(true);
         }
 
+    }
+
+    private void getUserInfo() {
+        com.android.volley.toolbox.StringRequest stringRequest = new StringRequest(Request.Method.GET, this.getUserUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject res = new JSONObject(response);
+                    int code = res.getJSONObject("meta").getInt("status");
+
+                    if (code == 700) {
+                        // Get token and save in local storage
+                        JSONObject data = res.getJSONObject("data");
+                        Log.d("USER_PROFILE", data.getString("username"));
+                        SharedPreferences.Editor sharePrefs = MainActivity.this.getApplicationContext().getSharedPreferences("ASKS", MODE_PRIVATE).edit();
+                        sharePrefs.putInt("userId", data.getInt("id"));
+                        sharePrefs.putString("username", data.getString("username"));
+                        sharePrefs.putString("email", data.getString("email"));
+                        sharePrefs.putString("role", data.getString("role"));
+                        sharePrefs.commit();
+                    } else {
+                        Toast.makeText(MainActivity.this.getApplicationContext(), res.getJSONObject("meta").getJSONObject("message").getString("main"), Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.getMessage() == null) {
+                    Log.d("VOLLEY_ERROR", "Unknow error");
+                    Toast.makeText(MainActivity.this.getApplicationContext(), "Unknow error", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("VOLLEY_ERROR", "ERROR: " + error.getMessage());
+                    Toast.makeText(MainActivity.this.getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                SharedPreferences sharePrefs = MainActivity.this.getApplicationContext().getSharedPreferences("ASKS", MODE_PRIVATE);
+                params.put("Authorization", sharePrefs.getString("token", null));
+
+                return params;
+            }
+        };
+        AsksController.getmInstance(MainActivity.this).addToRequestQueue(stringRequest);
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

@@ -1,4 +1,4 @@
-package www.seotoolzz.com.Ask.model;
+package www.seotoolzz.com.Ask.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import www.seotoolzz.com.Ask.R;
-import www.seotoolzz.com.Ask.model.Question;
+import www.seotoolzz.com.Ask.Model.Question;
 
 /**
  * Created by ngant on 4/15/2018.

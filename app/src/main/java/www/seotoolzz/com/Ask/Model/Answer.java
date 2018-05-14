@@ -1,4 +1,4 @@
-package www.seotoolzz.com.Ask.model;
+package www.seotoolzz.com.Ask.Model;
 
 /**
  * Created by ngant on 5/2/2018.

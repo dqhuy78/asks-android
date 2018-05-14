@@ -1,22 +1,17 @@
-package www.seotoolzz.com.Ask.model;
+package www.seotoolzz.com.Ask.Adapter;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import java.util.List;
-
 import www.seotoolzz.com.Ask.R;
-
-/**
- * Created by ngant on 5/2/2018.
- */
+import www.seotoolzz.com.Ask.Model.Answer;
 
 public class AnswerListAdapter extends BaseAdapter {
     private Context myContext;
-    private List<Answer> myAnswer;
+    private List<www.seotoolzz.com.Ask.Model.Answer> myAnswer;
 
     public AnswerListAdapter(Context myContext, List<Answer> myAnswer) {
         this.myContext = myContext;

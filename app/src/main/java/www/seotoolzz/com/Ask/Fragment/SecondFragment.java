@@ -1,4 +1,4 @@
-package www.seotoolzz.com.Ask.fragment;
+package www.seotoolzz.com.Ask.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import www.seotoolzz.com.Ask.model.NotificationListAdapter;
+import www.seotoolzz.com.Ask.Adapter.NotificationListAdapter;
 import www.seotoolzz.com.Ask.R;
-import www.seotoolzz.com.Ask.model.Notification;
+import www.seotoolzz.com.Ask.Model.Notification;
 
 public class SecondFragment extends Fragment {
 

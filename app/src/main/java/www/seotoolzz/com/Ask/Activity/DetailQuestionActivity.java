@@ -8,13 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -29,8 +27,9 @@ import java.util.Map;
 import www.seotoolzz.com.Ask.Helper.Helper;
 import www.seotoolzz.com.Ask.R;
 import www.seotoolzz.com.Ask.RequestController.AsksController;
-import www.seotoolzz.com.Ask.model.Answer;
-import www.seotoolzz.com.Ask.model.AnswerListAdapter;
+import www.seotoolzz.com.Ask.Model.Answer;
+import www.seotoolzz.com.Ask.Adapter.AnswerListAdapter;
+import android.widget.LinearLayout;
 
 public class DetailQuestionActivity extends AppCompatActivity {
 
@@ -44,6 +43,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
     private TextView tvDate;
     private String questionId;
     private int previousVote;
+    private LinearLayout btnLayout;
     private String getQuestionUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/questions/";
     private String voteUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/questions/vote";
 
@@ -60,7 +60,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
         tvUserName = (TextView) findViewById(R.id.txtUserName);
         tvNumberVote = (TextView) findViewById(R.id.txtVoteNumber);
         tvDate = (TextView) findViewById(R.id.tvDate);
-
+        btnLayout = (LinearLayout) findViewById(R.id.btnLayout);
 
         this.lvAnswer = (ListView)findViewById(R.id.listAnswer);
         myArrayAnswer = new ArrayList<>();
@@ -77,15 +77,25 @@ public class DetailQuestionActivity extends AppCompatActivity {
         questionId = recIntent.getStringExtra("id");
         getQuestion(questionId);
 
+
+
         Button addAnswer = (Button) findViewById(R.id.btnAddAnswer);
         addAnswer.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailQuestionActivity.this, AddAnswerActivity.class);
-                intent.putExtra("id", String.valueOf(questionId));
-                startActivity(intent);
+                if (!Helper.isLogin(DetailQuestionActivity.this)) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please login before do this",
+                            Toast.LENGTH_LONG
+                    ).show();
+                } else {
+                    Intent intent = new Intent(DetailQuestionActivity.this, AddAnswerActivity.class);
+                    intent.putExtra("id", String.valueOf(questionId));
+                    startActivity(intent);
+                }
             }
         });
+
         Button btnEdit = (Button) findViewById(R.id.btnEdit);
         btnEdit.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -99,13 +109,6 @@ public class DetailQuestionActivity extends AppCompatActivity {
             public void onClick(View v) {
             }
         });
-        Button btnShare = (Button) findViewById(R.id.btnShare);
-        btnShare.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
 
         ImageButton btnUpVote = (ImageButton) findViewById(R.id.upVote);
         btnUpVote.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +162,11 @@ public class DetailQuestionActivity extends AppCompatActivity {
                     tvDate.setText(data.getString("updatedAt"));
                     tvUserName.setText("Asks by: " + data.getJSONObject("user").getJSONObject("data").getString("username"));
                     previousVote = data.getInt("voteCount");
+                    SharedPreferences sharePrefs = DetailQuestionActivity.this.getApplicationContext().getSharedPreferences("ASKS", MODE_PRIVATE);
+                    int userId = sharePrefs.getInt("userId", 0);
+                    if (userId == data.getJSONObject("user").getJSONObject("data").getInt("id")) {
+                        btnLayout.setVisibility(View.VISIBLE);
+                    }
                     Log.d("QUESTION_DETAIL_RES", data.toString());
                 } else {
                     Toast.makeText(getApplicationContext(), res.getJSONObject("meta").getJSONObject("message").getString("main"), Toast.LENGTH_LONG).show();
@@ -184,7 +192,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
 
     private void updateVote(int value)
     {
-        final int inputvalue = value;
+        final int inputValue = value;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, this.voteUrl, new Response.Listener<String>() {
             @Override
@@ -194,7 +202,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
                     Log.d("LOGIN_RES", res.toString());
                     int code = res.getJSONObject("meta").getInt("status");
                     if (code == 700) {
-                        int newValue = previousVote + inputvalue;
+                        int newValue = previousVote + inputValue;
                         tvNumberVote.setText(String.valueOf(newValue));
                         Toast.makeText(getApplicationContext(), "Vote success", Toast.LENGTH_LONG).show();
                     } else {
@@ -221,7 +229,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("value", String.valueOf(inputvalue));
+                params.put("value", String.valueOf(inputValue));
                 params.put("id", String.valueOf(questionId));
 
                 return params;

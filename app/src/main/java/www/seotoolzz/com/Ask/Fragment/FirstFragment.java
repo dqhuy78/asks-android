@@ -1,4 +1,4 @@
-package www.seotoolzz.com.Ask.fragment;
+package www.seotoolzz.com.Ask.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,9 +28,9 @@ import java.util.List;
 
 import www.seotoolzz.com.Ask.RequestController.AsksController;
 import www.seotoolzz.com.Ask.Activity.DetailQuestionActivity;
-import www.seotoolzz.com.Ask.model.QuestionListAdapter;
+import www.seotoolzz.com.Ask.Adapter.QuestionListAdapter;
 import www.seotoolzz.com.Ask.R;
-import www.seotoolzz.com.Ask.model.Question;
+import www.seotoolzz.com.Ask.Model.Question;
 
 public class FirstFragment extends Fragment {
 
