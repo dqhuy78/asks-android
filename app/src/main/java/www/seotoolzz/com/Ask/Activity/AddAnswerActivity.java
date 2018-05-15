@@ -1,5 +1,6 @@
 package www.seotoolzz.com.Ask.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -45,6 +47,11 @@ public class AddAnswerActivity extends AppCompatActivity {
 
         edtContent = (EditText) findViewById(R.id.editAnswer);
 
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
         Button postAnswer = (Button) findViewById(R.id.btnPushAnswer);
         postAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +69,7 @@ public class AddAnswerActivity extends AppCompatActivity {
         if (content.trim().length() < 1) {
             Toast.makeText(getApplicationContext(), "Please fill your answer", Toast.LENGTH_LONG).show();
         } else {
+
             StringRequest stringRequest = new StringRequest(Request.Method.POST, this.createAnswerUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
