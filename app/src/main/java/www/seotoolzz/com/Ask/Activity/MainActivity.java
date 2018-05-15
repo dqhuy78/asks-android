@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d("AUTH", Helper.isLogin(MainActivity.this) + "");
         if (Helper.isLogin((AppCompatActivity) MainActivity.this)) {
             android.content.SharedPreferences sharePrefs = MainActivity.this.getApplicationContext().getSharedPreferences("ASKS", MODE_PRIVATE);
             Log.d("TEST_COND", sharePrefs.getString("username", "EMPTY").equals("EMPTY") + "");

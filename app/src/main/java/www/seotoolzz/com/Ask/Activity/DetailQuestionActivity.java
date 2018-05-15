@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -52,6 +53,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
     private String questionId;
     private int previousVote;
     private LinearLayout btnLayout;
+    private int ownerId;
     private String getQuestionUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/questions/";
     private String getAnswerUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/answers/";
     private String voteUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/questions/vote";
@@ -126,7 +128,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
                 } else {
                     AlertDialog.Builder alert = new AlertDialog.Builder(DetailQuestionActivity.this);
                     alert.setTitle("Warning");
-                    alert.setMessage("Are you sure you want to delete this question?");
+                    alert.setMessage("Are you sure to delete this question?");
                     alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -190,6 +192,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
                     tvTitle.setText(data.getString("title"));
                     tvContent.setText(data.getString("content"));
                     tvNumberVote.setText(String.valueOf(data.getInt("voteCount")));
+                    ownerId = data.getJSONObject("user").getJSONObject("data").getInt("id");
                     if (data.getInt("status") == 2) {
                         tvNumberVote.setBackgroundColor(Color.parseColor("#00C853"));
                         tvNumberVote.setTextColor(Color.WHITE);
@@ -350,8 +353,11 @@ public class DetailQuestionActivity extends AppCompatActivity {
                             JSONObject a;
                             a = data.getJSONObject(i);
                             String username = a.getJSONObject("user").getJSONObject("data").getString("username");
+                            int userId = a.getJSONObject("user").getJSONObject("data").getInt("id");
+                            Log.d("USER_ID", userId + "");
                             myArrayAnswer.add(new Answer(
                                     a.getInt("id"),
+                                    userId,
                                     a.getString("content"),
                                     username,
                                     a.getBoolean("solve"),
@@ -359,7 +365,11 @@ public class DetailQuestionActivity extends AppCompatActivity {
                             ));
                         }
                         tvAnswerNumber.setText(String.valueOf(data.length()));
-                        adapter = new AnswerListAdapter(getApplicationContext(), myArrayAnswer);
+                        SharedPreferences sharePrefs =  DetailQuestionActivity.this.getSharedPreferences("ASKS", MODE_PRIVATE);
+                        int userId = sharePrefs.getInt("userId", 0);
+                        String token = sharePrefs.getString("token", null);
+                        AlertDialog.Builder alert = new AlertDialog.Builder(DetailQuestionActivity.this);
+                        adapter = new AnswerListAdapter(getApplicationContext(), myArrayAnswer, userId, alert, token, questionId, ownerId);
                         lvAnswer.setAdapter(adapter);
                     } else {
                         Toast.makeText(DetailQuestionActivity.this.getApplicationContext(), res.getJSONObject("meta").getJSONObject("message").getString("main"), Toast.LENGTH_LONG).show();

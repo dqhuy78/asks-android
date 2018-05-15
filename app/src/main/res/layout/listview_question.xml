@@ -22,15 +22,6 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="5dp"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:entries="@array/items"
-            android:padding="5dp"
-            android:spinnerMode="dropdown" />
-
     </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

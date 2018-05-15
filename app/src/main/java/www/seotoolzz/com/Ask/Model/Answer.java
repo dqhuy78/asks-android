@@ -6,13 +6,23 @@ package www.seotoolzz.com.Ask.Model;
 
 public class Answer {
     private  int id;
+    private int userId;
     private String content;
     private String userName;
     private Boolean voteNumber;
     private String time;
 
-    public Answer(int id, String content, String userName, Boolean voteNumber, String time) {
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public Answer(int id, int userId, String content, String userName, Boolean voteNumber, String time) {
         this.id = id;
+        this.userId = userId;
         this.content = content;
         this.userName = userName;
         this.voteNumber = voteNumber;

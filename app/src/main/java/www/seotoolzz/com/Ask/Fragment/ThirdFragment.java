@@ -110,10 +110,13 @@ public class ThirdFragment extends Fragment implements View.OnClickListener{
                 SharedPreferences.Editor sharePrefs = getActivity().getApplicationContext().getSharedPreferences("ASKS", MODE_PRIVATE).edit();
                 sharePrefs.clear();
                 sharePrefs.commit();
+                Log.d("LOGOUT", "HERE");
                 Toast.makeText(getContext(),"Logout success",Toast.LENGTH_LONG).show();
                 Intent changeViewMain = new Intent(getActivity(), MainActivity.class);
                 startActivity(changeViewMain);
+                break;
             case R.id.btnMyQuestion:
+                Log.d("MYQES", "HERE");
                 Intent changeViewQuestion = new Intent(getActivity(), MyQuestionActivity.class);
                 startActivity(changeViewQuestion);
                 break;

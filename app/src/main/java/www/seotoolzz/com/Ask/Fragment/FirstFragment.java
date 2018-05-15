@@ -46,7 +46,6 @@ public class FirstFragment extends Fragment {
     private boolean isLoading = true;
     private String getQuestionUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/questions";
 
-    private Spinner spinnerQuestion;
     public static FirstFragment newInstance(int pageNo) {
 
         Bundle args = new Bundle();
@@ -68,9 +67,6 @@ public class FirstFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d("STATUS_2", isLoading + "");
         View view = inflater.inflate(R.layout.listview_question, container, false);
-
-        /*View header = (View)inflater.inflate(R.layout.header_listview_question,null);
-        lvQuestion.addHeaderView(header); */
 
         this.lvQuestion = (ListView) view.findViewById(R.id.lv_question);
         if (myArrayQuestion.size() < 1) {
@@ -121,7 +117,6 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        addListenerSpinerItemSelect(view);
         return view;
     }
 
@@ -191,22 +186,5 @@ public class FirstFragment extends Fragment {
             }
         });
         AsksController.getmInstance(getActivity()).addToRequestQueue(stringRequest);
-    }
-
-    public  void addListenerSpinerItemSelect(View view){
-        spinnerQuestion = (Spinner) view.findViewById(R.id.spinner);
-        spinnerQuestion.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(parent.getContext(),parent.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 }
