@@ -10,8 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -361,6 +363,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
                         tvAnswerNumber.setText(String.valueOf(data.length()));
                         adapter = new AnswerListAdapter(getApplicationContext(), myArrayAnswer);
                         lvAnswer.setAdapter(adapter);
+                        setListViewHeightBasedOnChildren(lvAnswer);
                     } else {
                         Toast.makeText(DetailQuestionActivity.this.getApplicationContext(), res.getJSONObject("meta").getJSONObject("message").getString("main"), Toast.LENGTH_LONG).show();
                     }
@@ -383,5 +386,26 @@ public class DetailQuestionActivity extends AppCompatActivity {
             }
         });
         AsksController.getmInstance(DetailQuestionActivity.this).addToRequestQueue(stringRequest);
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        int totalHeight = 0;
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 }
