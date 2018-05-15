@@ -100,6 +100,16 @@ public class DetailQuestionActivity extends AppCompatActivity {
         btnEdit.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!Helper.isLogin(DetailQuestionActivity.this)) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please login before do this",
+                            Toast.LENGTH_LONG
+                    ).show();
+                } else {
+                    Intent intent = new Intent(DetailQuestionActivity.this, UpdateAQuestion.class);
+                    intent.putExtra("id", String.valueOf(questionId));
+                    startActivity(intent);
+                }
             }
         });
 
@@ -107,6 +117,14 @@ public class DetailQuestionActivity extends AppCompatActivity {
         btnDelete.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!Helper.isLogin(DetailQuestionActivity.this)) {
+                    Toast.makeText(getApplicationContext(),
+                            "Please login before do this",
+                            Toast.LENGTH_LONG
+                    ).show();
+                } else {
+                    deleteQuestion();
+                }
             }
         });
 
@@ -187,6 +205,59 @@ public class DetailQuestionActivity extends AppCompatActivity {
                 }
             }
         });
+        AsksController.getmInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    private void deleteQuestion()
+    {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, this.getQuestionUrl + "remove", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject res = new JSONObject(response);
+                    Log.d("LOGIN_RES", res.toString());
+                    int code = res.getJSONObject("meta").getInt("status");
+                    if (code == 700) {
+                        Toast.makeText(getApplicationContext(), "Delete success", Toast.LENGTH_LONG).show();
+                        Intent changeView = new Intent(DetailQuestionActivity.this, MainActivity.class);
+                        startActivity(changeView);
+                    } else {
+                        Toast.makeText(getApplicationContext(), res.getJSONObject("meta").getJSONObject("message").getString("main"), Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.getMessage() == null) {
+                    Log.d("VOLLEY_ERROR", "Unknow error");
+                    Toast.makeText(getApplicationContext(), "Unknow error", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("VOLLEY_ERROR", "ERROR: " + error.getMessage());
+                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", String.valueOf(questionId));
+
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                SharedPreferences sharePrefs = DetailQuestionActivity.this.getApplicationContext().getSharedPreferences("ASKS", MODE_PRIVATE);
+                params.put("Authorization", sharePrefs.getString("token", null));
+
+                return params;
+            }
+        };
         AsksController.getmInstance(this).addToRequestQueue(stringRequest);
     }
 
