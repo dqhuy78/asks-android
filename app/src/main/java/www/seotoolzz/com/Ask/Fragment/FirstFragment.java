@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.method.CharacterPickerDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -43,6 +46,7 @@ public class FirstFragment extends Fragment {
     private boolean isLoading = true;
     private String getQuestionUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/questions";
 
+    private Spinner spinnerQuestion;
     public static FirstFragment newInstance(int pageNo) {
 
         Bundle args = new Bundle();
@@ -116,7 +120,8 @@ public class FirstFragment extends Fragment {
                 swipeLayout.setRefreshing(false);
             }
         });
-        
+
+        addListenerSpinerItemSelect(view);
         return view;
     }
 
@@ -186,5 +191,22 @@ public class FirstFragment extends Fragment {
             }
         });
         AsksController.getmInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+    public  void addListenerSpinerItemSelect(View view){
+        spinnerQuestion = (Spinner) view.findViewById(R.id.spinner);
+        spinnerQuestion.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(parent.getContext(),parent.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }
