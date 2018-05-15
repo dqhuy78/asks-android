@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Asks</string>
+    <string name="select_items">Active</string>
+    <string-array name="items">
+        <item>All</item>
+        <item>Slove</item>
+    </string-array>
 </resources>
