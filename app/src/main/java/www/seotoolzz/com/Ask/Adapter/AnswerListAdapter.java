@@ -47,6 +47,7 @@ public class AnswerListAdapter extends BaseAdapter {
         tvTime.setText(myAnswer.get(position).getTime());
 
         v.setTag(myAnswer.get(position).getId());
+
         return v;
     }
 }

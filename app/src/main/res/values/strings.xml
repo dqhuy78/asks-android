@@ -4,5 +4,6 @@
     <string-array name="items">
         <item>All</item>
         <item>Slove</item>
+        <item>Unsolve</item>
     </string-array>
 </resources>

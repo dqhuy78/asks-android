@@ -20,13 +20,18 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import www.seotoolzz.com.Ask.Adapter.QuestionListAdapter;
 import www.seotoolzz.com.Ask.Helper.Helper;
+import www.seotoolzz.com.Ask.Model.Question;
 import www.seotoolzz.com.Ask.R;
 import www.seotoolzz.com.Ask.RequestController.AsksController;
 import www.seotoolzz.com.Ask.Model.Answer;
@@ -43,10 +48,12 @@ public class DetailQuestionActivity extends AppCompatActivity {
     private TextView tvUserName;
     private TextView tvNumberVote;
     private TextView tvDate;
+    private TextView tvAnswerNumber;
     private String questionId;
     private int previousVote;
     private LinearLayout btnLayout;
     private String getQuestionUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/questions/";
+    private String getAnswerUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/answers/";
     private String voteUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/questions/vote";
 
     @Override
@@ -61,25 +68,17 @@ public class DetailQuestionActivity extends AppCompatActivity {
         tvContent = (TextView) findViewById(R.id.txtContent);
         tvUserName = (TextView) findViewById(R.id.txtUserName);
         tvNumberVote = (TextView) findViewById(R.id.txtVoteNumber);
+        tvAnswerNumber = (TextView) findViewById(R.id.txtNumberAnswer);
         tvDate = (TextView) findViewById(R.id.tvDate);
         btnLayout = (LinearLayout) findViewById(R.id.btnLayout);
 
-        this.lvAnswer = (ListView)findViewById(R.id.listAnswer);
+        lvAnswer = (ListView)findViewById(R.id.listAnswer);
         myArrayAnswer = new ArrayList<>();
 
-        myArrayAnswer.add(new Answer(1,"How about pass test ?","Huy","1","2/5/2018"));
-        myArrayAnswer.add(new Answer(1,"Khi nao bat dau thi ?","Thao","2","2/5/2018"));
-
-       /* myArrayAnswer.add(new Answer(1,"good","Huy","1","2/5/2018"));
-        myArrayAnswer.add(new Answer(1,"good","Thao","2","2/5/2018"));*/
-
-        adapter = new AnswerListAdapter(lvAnswer.getContext(),myArrayAnswer);
-        lvAnswer.setAdapter(adapter);
         Intent recIntent = getIntent();
         questionId = recIntent.getStringExtra("id");
         getQuestion(questionId);
-
-
+        getAnswerList(1);
 
         Button addAnswer = (Button) findViewById(R.id.btnAddAnswer);
         addAnswer.setOnClickListener( new View.OnClickListener() {
@@ -333,5 +332,56 @@ public class DetailQuestionActivity extends AppCompatActivity {
             }
         };
         AsksController.getmInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    private void getAnswerList(int pageNo) {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, this.getAnswerUrl + questionId + "?page=" + pageNo, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject res = new JSONObject(response);
+                    int code = res.getJSONObject("meta").getInt("status");
+
+                    if (code == 700) {
+                        // Get token and save in local storage
+                        JSONArray data = res.getJSONArray("data");
+                        Log.d("ANSWER_RES", data.toString());
+                        for(int i = 0; i < data.length(); i++) {
+                            JSONObject a;
+                            a = data.getJSONObject(i);
+                            String username = a.getJSONObject("user").getJSONObject("data").getString("username");
+                            myArrayAnswer.add(new Answer(
+                                    a.getInt("id"),
+                                    a.getString("content"),
+                                    username,
+                                    String.valueOf(a.getBoolean("solve")),
+                                    a.getString("createdAt")
+                            ));
+                        }
+                        tvAnswerNumber.setText(String.valueOf(data.length()));
+                        adapter = new AnswerListAdapter(getApplicationContext(), myArrayAnswer);
+                        lvAnswer.setAdapter(adapter);
+                    } else {
+                        Toast.makeText(DetailQuestionActivity.this.getApplicationContext(), res.getJSONObject("meta").getJSONObject("message").getString("main"), Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.getMessage() == null) {
+                    Log.d("VOLLEY_ERROR", "Unknow error");
+                    Toast.makeText(DetailQuestionActivity.this.getApplicationContext(), "Unknow error", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("VOLLEY_ERROR", "ERROR: " + error.getMessage());
+                    Toast.makeText(DetailQuestionActivity.this.getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        AsksController.getmInstance(DetailQuestionActivity.this).addToRequestQueue(stringRequest);
     }
 }
