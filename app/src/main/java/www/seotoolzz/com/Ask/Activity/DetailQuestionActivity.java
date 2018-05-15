@@ -413,7 +413,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()));
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount())) + listAdapter.getCount() * 40;
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
