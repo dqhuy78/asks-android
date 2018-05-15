@@ -10,11 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-<<<<<<< HEAD
-import android.widget.AdapterView;
-=======
 import android.view.ViewGroup;
->>>>>>> b1f7b54e0412d8570f4cfa0d8d7581e6ac086a78
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
