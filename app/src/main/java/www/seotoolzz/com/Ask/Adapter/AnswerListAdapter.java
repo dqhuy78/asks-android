@@ -40,12 +40,10 @@ public class AnswerListAdapter extends BaseAdapter {
 
         TextView tvContent = (TextView)v.findViewById(R.id.txtContentAnswer);
         TextView tvUserName = (TextView)v.findViewById(R.id.txtUserNameAnswer);
-        TextView tvNumberVote = (TextView)v.findViewById(R.id.txtVoteNumberAnswer);
         TextView tvTime = (TextView)v.findViewById(R.id.txtTimeAnswer);
 
         tvContent.setText(myAnswer.get(position).getContent());
         tvUserName.setText(myAnswer.get(position).getUserName());
-        tvNumberVote.setText(myAnswer.get(position).getVoteNumber());
         tvTime.setText(myAnswer.get(position).getTime());
 
         v.setTag(myAnswer.get(position).getId());

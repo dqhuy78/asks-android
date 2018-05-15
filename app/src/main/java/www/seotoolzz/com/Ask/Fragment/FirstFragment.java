@@ -65,6 +65,9 @@ public class FirstFragment extends Fragment {
         Log.d("STATUS_2", isLoading + "");
         View view = inflater.inflate(R.layout.listview_question, container, false);
 
+        /*View header = (View)inflater.inflate(R.layout.header_listview_question,null);
+        lvQuestion.addHeaderView(header); */
+
         this.lvQuestion = (ListView) view.findViewById(R.id.lv_question);
         if (myArrayQuestion.size() < 1) {
             getQuestionList(1);

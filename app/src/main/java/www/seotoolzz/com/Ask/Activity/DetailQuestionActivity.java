@@ -65,11 +65,11 @@ public class DetailQuestionActivity extends AppCompatActivity {
         this.lvAnswer = (ListView)findViewById(R.id.listAnswer);
         myArrayAnswer = new ArrayList<>();
 
-        myArrayAnswer.add(new Answer(1,"good","Huy","1","2/5/2018"));
-        myArrayAnswer.add(new Answer(1,"good","Thao","2","2/5/2018"));
+        myArrayAnswer.add(new Answer(1,"How about pass test ?","Huy","1","2/5/2018"));
+        myArrayAnswer.add(new Answer(1,"Khi nao bat dau thi ?","Thao","2","2/5/2018"));
 
-        myArrayAnswer.add(new Answer(1,"good","Huy","1","2/5/2018"));
-        myArrayAnswer.add(new Answer(1,"good","Thao","2","2/5/2018"));
+       /* myArrayAnswer.add(new Answer(1,"good","Huy","1","2/5/2018"));
+        myArrayAnswer.add(new Answer(1,"good","Thao","2","2/5/2018"));*/
 
         adapter = new AnswerListAdapter(lvAnswer.getContext(),myArrayAnswer);
         lvAnswer.setAdapter(adapter);

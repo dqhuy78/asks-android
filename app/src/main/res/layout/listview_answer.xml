@@ -11,6 +11,13 @@
         android:layout_height="wrap_content">
 
     </ListView>
-
+    <Button
+        android:id="@+id/btnAddAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@color/colorOrange"
+        android:text="Answer This Question"
+        android:textColor="@android:color/background_light" />
 
 </LinearLayout>
