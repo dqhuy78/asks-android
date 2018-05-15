@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import www.seotoolzz.com.Ask.Activity.LoginActivity;
+import www.seotoolzz.com.Ask.Activity.MainActivity;
 import www.seotoolzz.com.Ask.Activity.MyQuestionActivity;
 import www.seotoolzz.com.Ask.Activity.SignUpActivity;
 import www.seotoolzz.com.Ask.Helper.Helper;
@@ -110,7 +111,8 @@ public class ThirdFragment extends Fragment implements View.OnClickListener{
                 sharePrefs.clear();
                 sharePrefs.commit();
                 Toast.makeText(getContext(),"Logout success",Toast.LENGTH_LONG).show();
-                getActivity().recreate();
+                Intent changeViewMain = new Intent(getActivity(), MainActivity.class);
+                startActivity(changeViewMain);
             case R.id.btnMyQuestion:
                 Intent changeViewQuestion = new Intent(getActivity(), MyQuestionActivity.class);
                 startActivity(changeViewQuestion);

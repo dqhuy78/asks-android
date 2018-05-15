@@ -42,7 +42,6 @@ public class AddAnswerActivity extends AppCompatActivity {
 
         Intent recIntent = getIntent();
         questionId = recIntent.getStringExtra("id");
-        Toast.makeText(getApplicationContext(), questionId, Toast.LENGTH_LONG).show();
 
         edtContent = (EditText) findViewById(R.id.editAnswer);
 

@@ -1,9 +1,11 @@
 package www.seotoolzz.com.Ask.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -106,7 +108,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG
                     ).show();
                 } else {
-                    Intent intent = new Intent(DetailQuestionActivity.this, UpdateAQuestion.class);
+                    Intent intent = new Intent(DetailQuestionActivity.this, UpdateQuestionActivity.class);
                     intent.putExtra("id", String.valueOf(questionId));
                     startActivity(intent);
                 }
@@ -123,7 +125,23 @@ public class DetailQuestionActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG
                     ).show();
                 } else {
-                    deleteQuestion();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(DetailQuestionActivity.this);
+                    alert.setTitle("Warning");
+                    alert.setMessage("Are you sure you want to delete this question?");
+                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            deleteQuestion();
+                        }
+                    });
+                    alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    alert.show();
                 }
             }
         });

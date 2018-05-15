@@ -46,11 +46,11 @@
         </activity>
 
         <activity
-            android:name=".Activity.UpdateAQuestion"
+            android:name=".Activity.UpdateQuestionActivity"
             android:label="Asks">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="www.seotoolzz.com.Ask.Activity.UpdateAQuestion" />
+                android:value="www.seotoolzz.com.Ask.Activity.MainActivity" />
         </activity>
 
         <activity
@@ -66,7 +66,7 @@
             android:label="@string/app_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="www.seotoolzz.com.Ask.Activity.DetailQuestionActivity" />
+                android:value="www.seotoolzz.com.Ask.Activity.MainActivity" />
         </activity>
 
         <activity
@@ -74,7 +74,7 @@
             android:label="@string/app_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="www.seotoolzz.com.Ask.Activity.DetailQuestionActivity" />
+                android:value="www.seotoolzz.com.Ask.Activity.MainActivity" />
         </activity>
     </application>
 
