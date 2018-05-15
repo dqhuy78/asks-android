@@ -354,7 +354,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
                                     a.getInt("id"),
                                     a.getString("content"),
                                     username,
-                                    String.valueOf(a.getBoolean("solve")),
+                                    a.getBoolean("solve"),
                                     a.getString("createdAt")
                             ));
                         }

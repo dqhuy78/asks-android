@@ -8,10 +8,10 @@ public class Answer {
     private  int id;
     private String content;
     private String userName;
-    private String voteNumber;
+    private Boolean voteNumber;
     private String time;
 
-    public Answer(int id, String content, String userName, String voteNumber, String time) {
+    public Answer(int id, String content, String userName, Boolean voteNumber, String time) {
         this.id = id;
         this.content = content;
         this.userName = userName;
@@ -43,11 +43,11 @@ public class Answer {
         this.userName = userName;
     }
 
-    public String getVoteNumber() {
+    public Boolean getVoteNumber() {
         return voteNumber;
     }
 
-    public void setVoteNumber(String voteNumber) {
+    public void setVoteNumber(Boolean voteNumber) {
         this.voteNumber = voteNumber;
     }
 

@@ -1,9 +1,12 @@
 package www.seotoolzz.com.Ask.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import java.util.List;
 import www.seotoolzz.com.Ask.R;
@@ -41,10 +44,18 @@ public class AnswerListAdapter extends BaseAdapter {
         TextView tvContent = (TextView)v.findViewById(R.id.txtContentAnswer);
         TextView tvUserName = (TextView)v.findViewById(R.id.txtUserNameAnswer);
         TextView tvTime = (TextView)v.findViewById(R.id.txtTimeAnswer);
+        Button btnSolve = (Button) v.findViewById(R.id.btnSolve);
 
         tvContent.setText(myAnswer.get(position).getContent());
         tvUserName.setText(myAnswer.get(position).getUserName());
         tvTime.setText(myAnswer.get(position).getTime());
+
+        Log.d("STATUS", myAnswer.get(position).getVoteNumber() + "");
+        if (String.valueOf(myAnswer.get(position).getVoteNumber()).equals("true")) {
+            btnSolve.setTextColor(Color.WHITE);
+            btnSolve.setBackgroundColor(Color.parseColor("#00C853"));
+            btnSolve.setHeight(30);
+        }
 
         v.setTag(myAnswer.get(position).getId());
 
