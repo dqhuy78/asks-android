@@ -68,6 +68,8 @@ public class CreatNewQuestion extends AppCompatActivity {
     private void createQuestion(int status) {
         final String title = this.edTitle.getText().toString();
         final String question = this.edQuestion.getText().toString();
+        final String tagsString = this.edTags.getText().toString();
+        final String[] tags = tagsString.split(",");
         final int questionStatus = status;
 
         if (title.trim().length() < 1 || question.trim().length() < 1) {
@@ -112,6 +114,10 @@ public class CreatNewQuestion extends AppCompatActivity {
                     params.put("title", title);
                     params.put("content", question);
                     params.put("status", String.valueOf(questionStatus));
+                    for (int i = 0; i < tags.length; i++)
+                    {
+                        params.put("tags[]", tags[i]);
+                    }
 
                     return params;
                 }

@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import www.seotoolzz.com.Ask.Model.User;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class Helper {
