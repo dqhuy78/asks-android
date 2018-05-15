@@ -10,9 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+<<<<<<< HEAD
 import android.widget.AdapterView;
+=======
+import android.view.ViewGroup;
+>>>>>>> b1f7b54e0412d8570f4cfa0d8d7581e6ac086a78
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -371,6 +376,7 @@ public class DetailQuestionActivity extends AppCompatActivity {
                         AlertDialog.Builder alert = new AlertDialog.Builder(DetailQuestionActivity.this);
                         adapter = new AnswerListAdapter(getApplicationContext(), myArrayAnswer, userId, alert, token, questionId, ownerId);
                         lvAnswer.setAdapter(adapter);
+                        setListViewHeightBasedOnChildren(lvAnswer);
                     } else {
                         Toast.makeText(DetailQuestionActivity.this.getApplicationContext(), res.getJSONObject("meta").getJSONObject("message").getString("main"), Toast.LENGTH_LONG).show();
                     }
@@ -393,5 +399,26 @@ public class DetailQuestionActivity extends AppCompatActivity {
             }
         });
         AsksController.getmInstance(DetailQuestionActivity.this).addToRequestQueue(stringRequest);
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        int totalHeight = 0;
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount()));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 }
