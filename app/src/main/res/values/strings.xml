@@ -2,8 +2,12 @@
     <string name="app_name">Asks</string>
     <string name="select_items">Active</string>
     <string-array name="items">
-        <item>All</item>
-        <item>Slove</item>
-        <item>Unsolve</item>
+        <item>Active</item>
+        <item>Solve</item>
+    </string-array>
+    <string-array name="items_1">
+        <item>Active</item>
+        <item>Draft</item>
+        <item>Solve</item>
     </string-array>
 </resources>

@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -41,6 +42,8 @@ public class MyQuestionActivity extends AppCompatActivity {
     private List<Question> myArrayQuestion;
     private boolean isLoading = true;
     private int currentPage = 1;
+    private Spinner spinnerQuestion;
+    private int defaultFilter = 1;
     private String getQuestionUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/questions/user";
 
     @Override
@@ -53,7 +56,7 @@ public class MyQuestionActivity extends AppCompatActivity {
             adapter = new QuestionListAdapter(getApplicationContext(), myArrayQuestion);
             isLoading = false;
         } else {
-            getQuestionList(1);
+            getQuestionList(1, defaultFilter);
         }
 
         lvQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,7 +82,7 @@ public class MyQuestionActivity extends AppCompatActivity {
                     if (!isLoading) {
                         isLoading = true;
                         currentPage += 1;
-                        getQuestionList(currentPage);
+                        getQuestionList(currentPage, defaultFilter);
                     }
                 }
             }
@@ -91,14 +94,26 @@ public class MyQuestionActivity extends AppCompatActivity {
             public void onRefresh() {
                 Log.d("SWIPE_LAYOUT", "onRefresh: Refresh");
                 myArrayQuestion.clear();
-                getQuestionList(1);
+                getQuestionList(1, defaultFilter);
                 swipeLayout.setRefreshing(false);
             }
         });
+
+        addListenerSpinerItemSelect();
     }
 
-    private void getQuestionList(int pageNo) {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, this.getQuestionUrl + "?page=" + pageNo, new Response.Listener<String>() {
+    private void getQuestionList(int pageNo, int status) {
+        String value = "";
+        if (status == 1) {
+            value = "";
+        } else if (status == 0) {
+            value = "/draft";
+        } else if (status == 2) {
+            value = "/solve";
+        } else {
+            value = "";
+        }
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, this.getQuestionUrl + value + "?page=" + pageNo, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -166,5 +181,33 @@ public class MyQuestionActivity extends AppCompatActivity {
             }
         };
         AsksController.getmInstance(MyQuestionActivity.this).addToRequestQueue(stringRequest);
+    }
+
+    public void addListenerSpinerItemSelect(){
+        spinnerQuestion = (Spinner) findViewById(R.id.spinner);
+        spinnerQuestion.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener() {
+
+            @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String value = parent.getItemAtPosition(position).toString();
+                if (value.equals("Solve")) {
+                    defaultFilter = 2;
+                    myArrayQuestion.clear();
+                    getQuestionList(1, defaultFilter);
+                } else if (value.equals("Draft")){
+                    defaultFilter = 0;
+                    myArrayQuestion.clear();
+                    getQuestionList(1, defaultFilter);
+                } else {
+                    defaultFilter = 1;
+                    myArrayQuestion.clear();
+                    getQuestionList(1, defaultFilter);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }

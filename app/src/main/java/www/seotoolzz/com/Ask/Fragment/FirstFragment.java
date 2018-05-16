@@ -5,30 +5,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.method.CharacterPickerDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import www.seotoolzz.com.Ask.RequestController.AsksController;
 import www.seotoolzz.com.Ask.Activity.DetailQuestionActivity;
 import www.seotoolzz.com.Ask.Adapter.QuestionListAdapter;
@@ -44,6 +38,8 @@ public class FirstFragment extends Fragment {
     private List<Question> myArrayQuestion;
     private int currentPage = 1;
     private boolean isLoading = true;
+    private int defaultFilter = 0;
+    private Spinner spinnerQuestion;
     private String getQuestionUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/questions";
 
     public static FirstFragment newInstance(int pageNo) {
@@ -70,7 +66,7 @@ public class FirstFragment extends Fragment {
 
         this.lvQuestion = (ListView) view.findViewById(R.id.lv_question);
         if (myArrayQuestion.size() < 1) {
-            getQuestionList(1);
+            getQuestionList(1, defaultFilter);
         } else {
             adapter = new QuestionListAdapter(getContext(), myArrayQuestion);
             lvQuestion.setAdapter(adapter);
@@ -100,7 +96,7 @@ public class FirstFragment extends Fragment {
                     if (!isLoading) {
                         isLoading = true;
                         currentPage += 1;
-                        getQuestionList(currentPage);
+                        getQuestionList(currentPage, defaultFilter);
                     }
                 }
             }
@@ -112,10 +108,12 @@ public class FirstFragment extends Fragment {
             public void onRefresh() {
                 Log.d("SWIPE_LAYOUT", "onRefresh: Refresh");
                 myArrayQuestion.clear();
-                getQuestionList(1);
+                getQuestionList(1, defaultFilter);
                 swipeLayout.setRefreshing(false);
             }
         });
+
+        addListenerSpinerItemSelect(view);
 
         return view;
     }
@@ -131,8 +129,14 @@ public class FirstFragment extends Fragment {
         super.onDetach();
     }
 
-    private void getQuestionList(int pageNo) {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, this.getQuestionUrl + "?page=" + pageNo, new Response.Listener<String>() {
+    private void getQuestionList(int pageNo, int status) {
+        String addUrl;
+        if (status == 1) {
+            addUrl = "/solve";
+        } else {
+            addUrl = "";
+        }
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, this.getQuestionUrl + addUrl + "?page=" + pageNo, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -186,5 +190,29 @@ public class FirstFragment extends Fragment {
             }
         });
         AsksController.getmInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+    public  void addListenerSpinerItemSelect(View view){
+        spinnerQuestion = (Spinner) view.findViewById(R.id.spinner);
+        spinnerQuestion.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener() {
+
+            @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String value = parent.getItemAtPosition(position).toString();
+                if (value.equals("Solve")) {
+                    defaultFilter = 1;
+                    myArrayQuestion.clear();
+                    getQuestionList(1, defaultFilter);
+                } else {
+                    defaultFilter = 0;
+                    myArrayQuestion.clear();
+                    getQuestionList(1, defaultFilter);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 }
