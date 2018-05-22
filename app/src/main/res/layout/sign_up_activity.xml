@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:paddingEnd="20dp"
     android:paddingStart="20dp"
+    android:clipToPadding="false"
     android:layout_gravity="center"
     android:gravity="center">
 
@@ -91,5 +92,37 @@
         android:text="Back to login"
         android:textSize="15dp"
         android:layout_alignParentRight="true" />
+
+    <FrameLayout
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-20dp"
+        android:layout_marginRight="-20dp"
+        android:background="#33000000"
+        android:gravity="center"
+        android:paddingLeft="-20dp"
+        android:paddingStart="-20dp"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-20dp"
+            android:indeterminateTint="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="Loading..."
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+    </FrameLayout>
 
 </RelativeLayout>

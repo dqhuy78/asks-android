@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -33,10 +34,12 @@ import www.seotoolzz.com.Ask.RequestController.AsksController;
 
 public class SignUpActivity extends AppCompatActivity{
 
-    EditText edtUsername;
-    EditText edtEmail;
-    EditText edtPassword;
-    EditText getEdtPasswordConf;
+    private EditText edtUsername;
+    private EditText edtEmail;
+    private EditText edtPassword;
+    private EditText getEdtPasswordConf;
+    private boolean isLoading = false;
+    private FrameLayout layoutLoading;
     private String signupUrl = "http://laravel-demo-deploy.herokuapp.com/api/v0/signup";
 
     @Override
@@ -51,6 +54,7 @@ public class SignUpActivity extends AppCompatActivity{
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
         getEdtPasswordConf = (EditText) findViewById(R.id.edtPasswordConfirm);
+        layoutLoading = (FrameLayout) findViewById(R.id.layoutLoading);
 
         TextView txtToLogin = (TextView) findViewById(R.id.txtToLogin);
         txtToLogin.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +71,11 @@ public class SignUpActivity extends AppCompatActivity{
             @Override
             public void onClick(View v)
             {
-                signup();
+                if (!isLoading) {
+                    isLoading = true;
+                    layoutLoading.setVisibility(View.VISIBLE);
+                    signup();
+                }
             }
         });
     }
@@ -83,8 +91,12 @@ public class SignUpActivity extends AppCompatActivity{
                 || password.trim().length() < 1
                 || passwordConf.trim().length() < 1) {
             Toast.makeText(getApplicationContext(), "Please fill all field", Toast.LENGTH_SHORT).show();
+            isLoading = false;
+            layoutLoading.setVisibility(View.INVISIBLE);
         } else if(!password.trim().equals(passwordConf.trim())) {
             Toast.makeText(getApplicationContext(), "Password confirm not match", Toast.LENGTH_SHORT).show();
+            isLoading = false;
+            layoutLoading.setVisibility(View.INVISIBLE);
         } else {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, this.signupUrl, new Response.Listener<String>() {
                 @Override
@@ -93,6 +105,8 @@ public class SignUpActivity extends AppCompatActivity{
                         JSONObject res = new JSONObject(response);
                         Log.d("SIGNUP_RES", res.toString());
                         int code = res.getJSONObject("meta").getInt("status");
+                        isLoading = false;
+                        layoutLoading.setVisibility(View.INVISIBLE);
 
                         if (code == 700) {
                             Toast.makeText(getApplicationContext(), res.getJSONObject("meta").getJSONObject("message").getString("main"), Toast.LENGTH_LONG).show();
@@ -102,12 +116,16 @@ public class SignUpActivity extends AppCompatActivity{
                         }
 
                     } catch (JSONException e) {
+                        isLoading = false;
+                        layoutLoading.setVisibility(View.INVISIBLE);
                         e.printStackTrace();
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    isLoading = false;
+                    layoutLoading.setVisibility(View.INVISIBLE);
                     if (error.getMessage() == null) {
                         Log.d("VOLLEY_ERROR", "Unknow error");
                         Toast.makeText(getApplicationContext(), "Unknow error", Toast.LENGTH_SHORT).show();

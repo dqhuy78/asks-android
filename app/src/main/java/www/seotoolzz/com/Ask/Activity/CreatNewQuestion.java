@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +32,9 @@ public class CreatNewQuestion extends AppCompatActivity {
 
     Button btnPublish, btnDraft;
     EditText edTitle;
-    EditText edTags;
     EditText edQuestion;
+    private boolean isLoading = false;
+    private FrameLayout layoutLoading;
 
     private String questionUrl = "http://laravel-demo-deploy.herokuapp.com/api/v0/questions";
 
@@ -51,15 +53,25 @@ public class CreatNewQuestion extends AppCompatActivity {
         btnPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createQuestion(1);
+                if (!isLoading) {
+                    isLoading = true;
+                    layoutLoading.setVisibility(View.VISIBLE);
+                    createQuestion(1);
+                }
             }
         });
+        layoutLoading = (FrameLayout) findViewById(R.id.layoutLoading);
 
         btnDraft = (Button) findViewById(R.id.btnDraf);
         btnDraft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createQuestion(0);
+                if (!isLoading) {
+                    isLoading = true;
+                    layoutLoading.setVisibility(View.VISIBLE);
+                    createQuestion(0);
+                }
+
             }
         });
     }
@@ -71,6 +83,8 @@ public class CreatNewQuestion extends AppCompatActivity {
 
         if (title.trim().length() < 1 || question.trim().length() < 1) {
             Toast.makeText(getApplicationContext(), "Please fill at least title and questions field", Toast.LENGTH_LONG).show();
+            isLoading = false;
+            layoutLoading.setVisibility(View.INVISIBLE);
         } else {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, this.questionUrl, new Response.Listener<String>() {
                 @Override
@@ -79,9 +93,10 @@ public class CreatNewQuestion extends AppCompatActivity {
                         JSONObject res = new JSONObject(response);
                         Log.d("CREATE_QUESTION_RES", res.toString());
                         int code = res.getJSONObject("meta").getInt("status");
-
+                        isLoading = false;
+                        layoutLoading.setVisibility(View.INVISIBLE);
                         if (code == 700) {
-                            Toast.makeText(getApplicationContext(), "Publish success", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
                             Intent changeView = new Intent(CreatNewQuestion.this, MainActivity.class);
                             startActivity(changeView);
                         } else {
@@ -89,12 +104,16 @@ public class CreatNewQuestion extends AppCompatActivity {
                         }
 
                     } catch (JSONException e) {
+                        isLoading = false;
+                        layoutLoading.setVisibility(View.INVISIBLE);
                         e.printStackTrace();
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    isLoading = false;
+                    layoutLoading.setVisibility(View.INVISIBLE);
                     if (error.getMessage() == null) {
                         Log.d("VOLLEY_ERROR", "Unknow error");
                         Toast.makeText(getApplicationContext(), "Unknow error", Toast.LENGTH_SHORT).show();

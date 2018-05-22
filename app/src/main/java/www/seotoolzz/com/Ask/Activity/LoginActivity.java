@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.AuthFailureError;
@@ -25,10 +26,12 @@ import www.seotoolzz.com.Ask.RequestController.AsksController;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button btnLogin;
-    EditText edPassword;
-    EditText edNameUser;
-    TextView txtToSignUp;
+    private Button btnLogin;
+    private EditText edPassword;
+    private EditText edNameUser;
+    private TextView txtToSignUp;
+    private boolean isLoading = false;
+    private FrameLayout layoutLoading;
 
     private String loginUrl = "http://laravel-demo-deploy.herokuapp.com/api/v0/auth/login";
 
@@ -41,12 +44,18 @@ public class LoginActivity extends AppCompatActivity {
 
         this.edNameUser = (EditText)findViewById(R.id.edtEmail);
         this.edPassword = (EditText)findViewById(R.id.edtPassword);
+        layoutLoading = (FrameLayout) findViewById(R.id.layoutLoading);
 
         btnLogin = (Button)findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
+                if (!isLoading) {
+                    isLoading = true;
+                    layoutLoading.setVisibility(View.VISIBLE);
+                    login();
+                }
+
             }
         });
 
@@ -71,6 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     try {
+                        isLoading = false;
+                        layoutLoading.setVisibility(View.INVISIBLE);
                         JSONObject res = new JSONObject(response);
                         Log.d("LOGIN_RES", res.toString());
                         int code = res.getJSONObject("meta").getInt("status");
@@ -89,12 +100,16 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                     } catch (JSONException e) {
+                        isLoading = false;
+                        layoutLoading.setVisibility(View.INVISIBLE);
                         e.printStackTrace();
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    isLoading = false;
+                    layoutLoading.setVisibility(View.INVISIBLE);
                     if (error.getMessage() == null) {
                         Log.d("VOLLEY_ERROR", "Unknow error");
                         Toast.makeText(getApplicationContext(), "Unknow error", Toast.LENGTH_SHORT).show();

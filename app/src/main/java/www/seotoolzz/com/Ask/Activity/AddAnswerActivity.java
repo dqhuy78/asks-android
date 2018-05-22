@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -33,6 +34,8 @@ public class AddAnswerActivity extends AppCompatActivity {
     private String questionId;
     private EditText edtContent;
     private String createAnswerUrl = "https://laravel-demo-deploy.herokuapp.com/api/v0/answers";
+    private boolean isLoading = false;
+    private FrameLayout layoutLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class AddAnswerActivity extends AppCompatActivity {
         questionId = recIntent.getStringExtra("id");
 
         edtContent = (EditText) findViewById(R.id.editAnswer);
+        layoutLoading = (FrameLayout) findViewById(R.id.layoutLoading);
 
         View view = this.getCurrentFocus();
         if (view != null) {
@@ -56,7 +60,12 @@ public class AddAnswerActivity extends AppCompatActivity {
         postAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postQuestion(questionId);
+                if (!isLoading) {
+                    isLoading = true;
+//                    layoutLoading.setVisibility(View.VISIBLE);
+                    postQuestion(questionId);
+                }
+
             }
         });
     }
@@ -68,6 +77,8 @@ public class AddAnswerActivity extends AppCompatActivity {
 
         if (content.trim().length() < 1) {
             Toast.makeText(getApplicationContext(), "Please fill your answer", Toast.LENGTH_LONG).show();
+            isLoading = false;
+//            layoutLoading.setVisibility(View.INVISIBLE);
         } else {
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, this.createAnswerUrl, new Response.Listener<String>() {
@@ -77,7 +88,8 @@ public class AddAnswerActivity extends AppCompatActivity {
                         JSONObject res = new JSONObject(response);
                         Log.d("CREATE_QUESTION_RES", res.toString());
                         int code = res.getJSONObject("meta").getInt("status");
-
+                        isLoading = false;
+//                        layoutLoading.setVisibility(View.INVISIBLE);
                         if (code == 700) {
                             Toast.makeText(getApplicationContext(), "Create answer success", Toast.LENGTH_LONG).show();
                             Intent changeView = new Intent(AddAnswerActivity.this, DetailQuestionActivity.class);
@@ -88,12 +100,16 @@ public class AddAnswerActivity extends AppCompatActivity {
                         }
 
                     } catch (JSONException e) {
+                        isLoading = false;
+//                        layoutLoading.setVisibility(View.INVISIBLE);
                         e.printStackTrace();
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    isLoading = false;
+//                    layoutLoading.setVisibility(View.INVISIBLE);
                     if (error.getMessage() == null) {
                         Log.d("VOLLEY_ERROR", "Unknow error");
                         Toast.makeText(getApplicationContext(), "Unknow error", Toast.LENGTH_SHORT).show();

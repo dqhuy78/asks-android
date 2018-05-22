@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:paddingEnd="20dp"
     android:paddingStart="20dp"
+    android:clipToPadding="false"
     android:layout_gravity="center"
     android:gravity="center">
 
@@ -28,7 +29,8 @@
         android:inputType="textEmailAddress"
         android:textColorHighlight="@color/colorPrimary"
         android:textColorLink="@color/colorPrimary"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:id="@+id/edtPassword"
@@ -41,7 +43,9 @@
         android:inputType="textPassword"
         android:hint="Password"
         android:textColorLink="@color/colorPrimary"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:layout_alignRight="@+id/edtEmail"
+        android:layout_alignLeft="@+id/edtEmail" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -53,7 +57,8 @@
         android:text="Login"
         android:background="@color/colorPrimary"
         android:textColor="#fff"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:layout_alignLeft="@+id/edtPassword" />
 
     <TextView
         android:id="@+id/txtToSignup"
@@ -63,7 +68,8 @@
         android:layout_below="@+id/btnLogin"
         android:layout_marginTop="15dp"
         android:text="Don't have an account ? Sign-up here"
-        android:textSize="15dp"/>
+        android:textSize="15dp"
+        android:layout_alignRight="@+id/btnLogin" />
 
     <TextView
         android:id="@+id/txtErr"
@@ -77,4 +83,37 @@
         android:textSize="16dp"
         android:visibility="invisible" />
 
+    <FrameLayout
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-20dp"
+        android:layout_marginRight="-20dp"
+        android:background="#33000000"
+        android:gravity="center"
+        android:paddingLeft="-20dp"
+        android:paddingStart="-20dp"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-20dp"
+            android:indeterminateTint="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="Loading..."
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+    </FrameLayout>
+
 </RelativeLayout>
+

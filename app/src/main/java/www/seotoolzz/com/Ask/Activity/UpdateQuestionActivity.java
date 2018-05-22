@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -28,6 +29,8 @@ public class UpdateQuestionActivity extends AppCompatActivity {
     private EditText edTitle;
     private EditText edTags;
     private EditText edContent;
+    private boolean isLoading = false;
+    private FrameLayout layoutLoading;
 
     private String questionId;
 
@@ -44,6 +47,7 @@ public class UpdateQuestionActivity extends AppCompatActivity {
         this.edTitle = (EditText)findViewById(R.id.edTitle);
         this.edTags = (EditText)findViewById(R.id.edTags);
         this.edContent = (EditText)findViewById(R.id.edQuestion);
+        layoutLoading = (FrameLayout) findViewById(R.id.layoutLoading);
 
         Intent recIntent = getIntent();
         questionId = recIntent.getStringExtra("id");
@@ -53,7 +57,12 @@ public class UpdateQuestionActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateQuestion(1);
+                if (!isLoading) {
+                    isLoading = true;
+                    layoutLoading.setVisibility(View.VISIBLE);
+                    updateQuestion(1);
+                }
+
             }
         });
 
@@ -61,7 +70,11 @@ public class UpdateQuestionActivity extends AppCompatActivity {
         btnDraf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateQuestion(0);
+                if (!isLoading) {
+                    isLoading = true;
+                    layoutLoading.setVisibility(View.VISIBLE);
+                    updateQuestion(0);
+                }
             }
         });
 
@@ -84,6 +97,8 @@ public class UpdateQuestionActivity extends AppCompatActivity {
                 try {
                     JSONObject res = new JSONObject(response);
                     int code = res.getJSONObject("meta").getInt("status");
+                    isLoading = true;
+                    layoutLoading.setVisibility(View.VISIBLE);
                     if (code == 700) {
                         // Get token and save in local storage
                         JSONObject data = res.getJSONObject("data");
@@ -118,6 +133,8 @@ public class UpdateQuestionActivity extends AppCompatActivity {
         final int questionStatus = status;
 
         if (title.trim().length() < 1 || question.trim().length() < 1) {
+            isLoading = false;
+            layoutLoading.setVisibility(View.INVISIBLE);
             Toast.makeText(getApplicationContext(), "Please fill at least title and questions field", Toast.LENGTH_LONG).show();
         } else {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, this.questionUrl + "update", new Response.Listener<String>() {
@@ -127,7 +144,8 @@ public class UpdateQuestionActivity extends AppCompatActivity {
                         JSONObject res = new JSONObject(response);
                         Log.d("CREATE_QUESTION_RES", res.toString());
                         int code = res.getJSONObject("meta").getInt("status");
-
+                        isLoading = false;
+                        layoutLoading.setVisibility(View.INVISIBLE);
                         if (code == 700) {
                             Toast.makeText(getApplicationContext(), "Update success", Toast.LENGTH_LONG).show();
                             Intent changeView = new Intent(UpdateQuestionActivity.this, MainActivity.class);
@@ -137,12 +155,16 @@ public class UpdateQuestionActivity extends AppCompatActivity {
                         }
 
                     } catch (JSONException e) {
+                        isLoading = false;
+                        layoutLoading.setVisibility(View.INVISIBLE);
                         e.printStackTrace();
                     }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    isLoading = false;
+                    layoutLoading.setVisibility(View.INVISIBLE);
                     if (error.getMessage() == null) {
                         Log.d("VOLLEY_ERROR", "Unknow error");
                         Toast.makeText(getApplicationContext(), "Unknow error", Toast.LENGTH_SHORT).show();
